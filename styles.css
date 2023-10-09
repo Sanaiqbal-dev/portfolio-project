@@ -1,0 +1,90 @@
+body {
+  background-color: #e0dedc;
+  margin: 0;
+  max-width: 100%;
+  font-family: "Figtree", sans-serif;
+  color: #5d5648;
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+.main-content {
+  width: 100%;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: row;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+header {
+  height: auto;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px 70px;
+  background-color: black;
+}
+
+.header-options {
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.header-options:hover {
+  color: orange;
+}
+
+hr {
+  border-top: 1px dotted #5d5648;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#details {
+  padding: 75px;
+}
+
+#heading {
+  text-align: center;
+  margin-top: -15px;
+  font-weight: 300;
+}
+
+#picture {
+  height: auto;
+  background-color: #c0bdb8;
+ 
+  text-align: center;
+  padding: 75px 30px;
+}
+
+footer {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 70px;
+  background-color: black;
+}
+footer a:hover {
+  color: orange;
+}
+
+a {
+  color: white;
+}
+
+.inline-div {
+  display: inline-block;
+}
+
+#img-linkedin:hover {
+  scale: 1.2;
+}
