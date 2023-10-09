@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="portfolio-form-submission.js"></script>
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <header>
+      <h2 class="header-options"><a href="/portfolio.html">Home</a></h2>
+    </header>
+    <main>
+      <div id="signupModal" class="signup-modal">
+        <div class="modal-content">
+          <hr class="signup-hr" />
+
+          <div class="inner-form">
+            <h2>SIGN UP</h2>
+            <form id="submit-form" action="">
+              <section>
+                <input
+                  id="name"
+                  class="input-field"
+                  type="text"
+                  placeholder="Name"
+                  value=""
+                /><p id="alert-name">Please enter your name.</p>
+                <input
+                  id="email"
+                  class="input-field"
+                  placeholder="Email"
+                  value=""
+                />
+                <p id="alert-email">Please enter your email.</p>
+                <p>Please enter correct email.</p>
+                <input
+                  id="password"
+                  class="input-field"
+                  type="password"
+                  placeholder="Password (atleast 8 characters)"
+                  value=""
+                /><p  id="alert-password">Please enter correct password.</p>
+              </section>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  max-height: 50px;
+                  height: 50px;
+                  margin-top: 50px;
+                  margin-left: auto;
+                  margin-right: auto;
+                "
+              >
+                <button id="submit" type="submit">SUBMIT</button>
+                <div id="loading" class="spinner"></div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div id="success-msg">
+    Registration successful 🙂</div>
+    </main>
+  </body>
+</html>
