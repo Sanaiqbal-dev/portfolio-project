@@ -23,31 +23,31 @@ document.addEventListener("DOMContentLoaded", function () {
         isPassword = false;
 
       if (userName.value.length == 0) {
-        userName.style.border = "2px solid red";
+        userName.style.border = "1px solid red";
         alertName.style.display = "block";
         isUserName = false;
       } else {
-        userName.style.border = "2px solid grey";
+        userName.style.border = "1px solid grey";
         alertName.style.display = "none";
         isUserName = true;
       }
 
       if (regex.test(email.value) == false) {
-        email.style.border = "2px solid red";
+        email.style.border = "1px solid red";
         alertEmail.style.display = "block";
         isEmail = false;
       } else {
-        email.style.border = "2px solid grey";
+        email.style.border = "1px solid grey";
         alertEmail.style.display = "none";
         isEmail = true;
       }
 
       if (password.value.length <= 7) {
-        password.style.border = "2px solid red";
+        password.style.border = "1px solid red";
         alertPassword.style.display = "block";
         isPassword = false;
       } else {
-        password.style.border = "2px solid grey";
+        password.style.border = "1px solid grey";
         alertPassword.style.display = "none";
         isPassword = true;
       }

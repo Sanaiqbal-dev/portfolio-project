@@ -91,21 +91,21 @@ a {
   color: hsl(40, 13%, 32%);
 }
 .modal-content {
-  width: 500px;
+  width: 450px;
   height: auto;
   background-color: white;
   padding-bottom: 50px;
-  margin: 50px auto;
+  margin: 20px auto;
   box-shadow: 10px 10px 10px hsl(40, 10%, 76%);
 }
 .modal-content h2 {
   text-align: center;
 }
 .inner-form {
-  margin-top: 20px;
+  margin-top: 0px;
   display: flex;
   flex-direction: column;
-  padding: 10px 30px 30px 30px;
+  padding: 10px 30px 0px 30px;
 }
 .input-field {
   display: block;
@@ -117,6 +117,7 @@ a {
   border: 1px solid grey;
   padding: 5px;
   font-size: medium;
+  
 }
 .inner-form p {
   display: none;
@@ -137,7 +138,7 @@ a {
   font-weight: 700;
   font-size: large;
   color: white;
-  margin-top: 50px;
+  margin-top: 30px;
 }
 
 #submit:hover {
