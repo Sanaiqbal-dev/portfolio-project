@@ -1,7 +1,6 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 document.addEventListener("DOMContentLoaded", function () {
-  const btnSubmit = document.getElementById("submit");
 
   var form = document.getElementById("submit-form");
 
@@ -19,7 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       let successMsg = document.getElementById("success-msg");
 
-      let isUserName, isEmail, isPassword = false;
+      let isUserName,
+        isEmail,
+        isPassword = false;
 
       if (userName.value.length == 0) {
         userName.style.border = "2px solid red";
@@ -51,10 +52,12 @@ document.addEventListener("DOMContentLoaded", function () {
         isPassword = true;
       }
 
-        (isUserName && isEmail && isPassword) ? successMsg.style.display = "block" : successMsg.style.display = "none"
-      //   else {
-      //     alert("Successfull");
-      //   }
+      if (isUserName && isEmail && isPassword) {
+        successMsg.style.display = "block";
+
+      } else {
+        successMsg.style.display = "none";
+      }
     });
   }
 });
