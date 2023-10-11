@@ -48,11 +48,11 @@ header {
   display: flex;
   flex-direction: column;
 }
-.top-row{
+.top-row {
   margin-top: 0;
   padding: 75px;
 }
-.title-about{
+.title-about {
   margin-top: 0;
 }
 hr {
@@ -63,13 +63,13 @@ hr {
 #details {
   padding: 75px;
 }
-#details h1{
-  margin-bottom: 50px
+#details h1 {
+  margin-bottom: 50px;
 }
-.exp-item{
+.exp-item {
   margin: 50px;
 }
-.exp-item li{
+.exp-item li {
   margin-bottom: 10px;
 }
 #heading {
@@ -100,7 +100,7 @@ a {
   color: white;
 }
 
-.inline-div{
+.inline-div {
   display: inline-block;
 }
 
@@ -136,7 +136,6 @@ a {
   border: 1px solid grey;
   padding: 5px;
   font-size: medium;
-  
 }
 .inner-form p {
   display: none;
@@ -157,9 +156,8 @@ a {
   font-weight: 700;
   font-size: large;
   color: white;
-  margin-top: 30px;
+  margin-top: 50px;
 }
-
 #submit:hover {
   background: #918d86;
 }

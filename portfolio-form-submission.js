@@ -1,7 +1,6 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 document.addEventListener("DOMContentLoaded", function () {
-
   var form = document.getElementById("submit-form");
 
   if (form) {
@@ -54,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isUserName && isEmail && isPassword) {
         successMsg.style.display = "block";
-
+        successMsg.scrollIntoView({ behavior: "smooth" });
       } else {
         successMsg.style.display = "none";
       }
