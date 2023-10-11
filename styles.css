@@ -44,6 +44,17 @@ header {
   color: orange;
 }
 
+.introduction {
+  display: flex;
+  flex-direction: column;
+}
+.top-row{
+  margin-top: 0;
+  padding: 75px;
+}
+.title-about{
+  margin-top: 0;
+}
 hr {
   border-top: 1px dotted #5d5648;
   margin-top: 50px;
@@ -52,7 +63,15 @@ hr {
 #details {
   padding: 75px;
 }
-
+#details h1{
+  margin-bottom: 50px
+}
+.exp-item{
+  margin: 50px;
+}
+.exp-item li{
+  margin-bottom: 10px;
+}
 #heading {
   text-align: center;
   margin-top: -15px;
@@ -62,7 +81,7 @@ hr {
 #picture {
   height: auto;
   background-color: #c0bdb8;
- 
+
   text-align: center;
   padding: 75px 30px;
 }
@@ -81,10 +100,6 @@ a {
   color: white;
 }
 
-.inline-div {
+.inline-div{
   display: inline-block;
-}
-
-#img-linkedin:hover {
-  scale: 1.2;
 }
