@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Edit Portfolio</title>
+  </head>
+  <body>
+    <header>
+      <h2 class="header-options"><a href="/portfolio.html">Home</a></h2>
+    </header>
+
+    <main>
+      <div class="main-content">
+        <div class="introduction">
+          <div class="top-row">
+            <div class="intro-div">
+              <h1 class="title-about">About</h1>
+              <p id="intro-data">
+                I am a highly experienced Full Stack Web Developer with a proven
+                track record of developing, designing, and integrating robust
+                Web Applications using the latest technologies like React JS,
+                Express JS, Node, MongoDB, etc. I have in-depth knowledge in
+                this area and can provide responsive web application development
+                services. I am also familiar with common framework APIs,
+                dedicated to creating user-centric and innovative web-based
+                solutions to drive business growth.
+              </p>
+
+              <hr class="seperator" />
+
+              <h3 class="inline-div">Contact:</h3>
+              <p class="inline-div">+92 333 1234567</p>
+              <br />
+              <h3 class="inline-div">Email:</h3>
+              <p class="inline-div">sana.iqbal@codeninjaconsulting.com</p>
+            </div>
+          </div>
+          <div id="details">
+            <div>
+              <h1>Work Experience</h1>
+              <div class="work-exp" id="workexp">
+                <form class="work-exp-form" id="work-exp-form">
+                    <div class="close-btn"><button>X</button></div>
+                    <h2>Fill work experience details:</h2>
+                  <input
+                    type="text"
+                    id="company-name"
+                    placeholder="Enter your company name:"
+                  />
+                  <div class="date-section">
+                    <input
+                      type="date"
+                      id="start-date"
+                      placeholder="Enter your company name:"
+                    />
+                    <input
+                      type="date"
+                      id="end-date"
+                      placeholder="Enter your company name:"
+                    />
+                  </div>
+                  <textarea
+                    id="decription"
+                    placeholder="Add job description:"
+                  ></textarea>
+                  <button class="save-btn" type="submit">SAVE</button>
+                </form>
+                <button class="add-exp">Add Experience</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="picture">
+          <img
+            id="person"
+            width="250px"
+            height="auto"
+            src="res/ic_profile.png"
+          />
+          <h2 id="name-data">Sana Iqbal</h2>
+          <h3 id="heading">Software Engineer</h3>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <a
+        id="linkedin-data"
+        target="_blank"
+        href="https://www.linkedin.com/in/sana-iqbal-a2501aa4"
+      >
+        <h2>LinkedIn</h2>
+      </a>
+    </footer>
+  </body>
+</html>

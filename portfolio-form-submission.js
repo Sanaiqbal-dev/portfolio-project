@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (isUserName && isEmail && isPassword) {
         successMsg.style.display = "block";
+        successMsg.scrollIntoView({ behavior: "smooth" });
 
       } else {
         successMsg.style.display = "none";
