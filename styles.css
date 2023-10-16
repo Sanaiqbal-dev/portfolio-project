@@ -3,7 +3,7 @@ body {
   margin: 0;
   max-width: 100%;
   font-family: "Figtree", sans-serif;
-  color: #5d5648;
+  color: hsl(40, 13%, 32%);
   box-sizing: border-box;
 }
 
@@ -11,7 +11,6 @@ main {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 50px;
   box-sizing: border-box;
 }
 
@@ -20,6 +19,7 @@ main {
   display: flex;
   margin-left: auto;
   margin-right: auto;
+  padding: 50px;
   flex-direction: row;
   justify-content: center;
   box-sizing: border-box;
@@ -40,7 +40,7 @@ header {
   text-align: center;
 }
 
-.header-options:hover {
+.header-options a:hover {
   color: orange;
 }
 
@@ -48,11 +48,11 @@ header {
   display: flex;
   flex-direction: column;
 }
-.top-row{
+.top-row {
   margin-top: 0;
   padding: 75px;
 }
-.title-about{
+.title-about {
   margin-top: 0;
 }
 hr {
@@ -63,13 +63,13 @@ hr {
 #details {
   padding: 75px;
 }
-#details h1{
-  margin-bottom: 50px
+#details h1 {
+  margin-bottom: 50px;
 }
-.exp-item{
+.exp-item {
   margin: 50px;
 }
-.exp-item li{
+.exp-item li {
   margin-bottom: 10px;
 }
 #heading {
@@ -100,6 +100,87 @@ a {
   color: white;
 }
 
-.inline-div{
+.inline-div {
   display: inline-block;
+}
+
+.signup-modal {
+  display: block;
+
+  color: hsl(40, 13%, 32%);
+}
+.modal-content {
+  width: 450px;
+  height: auto;
+  background-color: white;
+  padding-bottom: 50px;
+  margin: 20px auto;
+  box-shadow: 10px 10px 10px hsl(40, 10%, 76%);
+}
+.modal-content h2 {
+  text-align: center;
+}
+.form-container {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 30px 0px 30px;
+}
+.input-field {
+  display: block;
+  width: 90%;
+  height: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  border: 1px solid grey;
+  padding: 5px;
+  font-size: medium;
+}
+.alert-msg {
+  display: none;
+  font-size: medium;
+  color: red;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#submit {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  background: hsl(40, 13%, 32%);
+  border-color: transparent;
+  box-shadow: 5px 5px 5px rgb(205, 205, 207);
+  font-weight: 700;
+  font-size: large;
+  color: white;
+  margin-top: 50px;
+}
+#submit:hover {
+  background: #918d86;
+}
+
+#submit:active {
+  background: #918d86;
+}
+
+.signup-hr {
+  height: 5px;
+  margin: 0px;
+  background: hsl(40, 13%, 32%);
+}
+#success-msg {
+  display: none;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
+  color: green;
+  font-size: xx-large;
+  font-weight: 700;
+}
+.form-container input{
+    border: 1px solid grey;
 }
