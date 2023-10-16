@@ -11,6 +11,7 @@
     />
     <link rel="stylesheet" href="styles.css" />
     <title>Edit Portfolio</title>
+    <script src="portfolio-form-submission.js"></script>
   </head>
   <body>
     <header>
@@ -47,33 +48,45 @@
             <div>
               <h1>Work Experience</h1>
               <div class="work-exp" id="workexp">
-                <form class="work-exp-form" id="work-exp-form">
-                    <div class="close-btn"><button>X</button></div>
-                    <h2>Fill work experience details:</h2>
+                <div class="exp-list"></div>
+                <form class="work-exp-form" id="work-exp-form" onsubmit="ShowWorkExp(event)">
+                  <div class="close-btn">
+                    <button onclick="closeForm(event)">X</button>
+                  </div>
+                  <h3>Fill work experience details:</h3>
                   <input
                     type="text"
                     id="company-name"
+                    required
                     placeholder="Enter your company name:"
                   />
+                  <div class="date-section">
+                    <label>Start Date</label>
+                    <label>End Date</label>
+                  </div>
                   <div class="date-section">
                     <input
                       type="date"
                       id="start-date"
-                      placeholder="Enter your company name:"
+                      required
+                      placeholder="start-date"
                     />
                     <input
                       type="date"
                       id="end-date"
-                      placeholder="Enter your company name:"
+                      required
                     />
                   </div>
                   <textarea
-                    id="decription"
+                    id="description"
+                    required
                     placeholder="Add job description:"
                   ></textarea>
-                  <button class="save-btn" type="submit">SAVE</button>
+                  <button class="save-btn" id="save-info" type="submit">SAVE</button>
                 </form>
-                <button class="add-exp">Add Experience</button>
+                <button class="add-exp" onclick="AddWorkExperience()">
+                  Add Experience
+                </button>
               </div>
             </div>
           </div>
