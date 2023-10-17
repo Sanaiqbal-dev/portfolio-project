@@ -226,42 +226,56 @@ a {
   flex-direction: column;
   align-items: start;
   border-radius: 5px;
-  background-color: white;
+  background-color: #f4f3f1;
   box-shadow: 5px 5px 5px lightgrey;
   padding: 10px;
   align-self: center;
   margin-top: 50px;
 }
-.work-exp-form input,textarea {
+.work-exp-form input,
+textarea {
   display: block;
   width: 85%;
   height: 30px;
-  background-color: #f4f3f1;
+  background-color: white;
   border: none;
   font-size: small;
   margin: 10px auto;
-  padding:0px 10px;
+  padding: 0px 10px;
 }
 
-.work-exp-form h3{
+.work-exp-form h3 {
   margin: 30px auto;
 }
-#end-date{
-margin-left: 20px;
-}
-.date-section{
+/* #end-date {
+  margin-left: 20px;
+} */
+.date-section {
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.date-section div {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin: 10px auto;
+  gap: 20px;
 }
-textarea{
+.date-section div > label {
+  width: 50%;
+  font-weight: 700;
+}
+
+textarea {
   min-height: 100px;
   padding: 10px;
 }
-.save-btn{
+.save-btn {
   margin: 35px auto;
   padding: 10px 50px;
   border: none;
@@ -270,22 +284,20 @@ textarea{
   font-size: large;
   border-radius: 10px;
   box-shadow: 3px 3px 10px lightgrey;
-  
 }
-.save-btn:hover{
-    background-color: rgb(222, 146, 5);
+.save-btn:hover {
+  background-color: rgb(222, 146, 5);
 }
-.close-btn{
+.close-btn {
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
-  
 }
-.exp-list{
+.exp-list {
   max-height: 400px;
   overflow-y: auto;
   background-color: #f4f3f1;
 }
-.exp-content{
+.exp-content {
   margin-left: 20px;
 }

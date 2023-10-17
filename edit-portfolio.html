@@ -49,7 +49,11 @@
               <h1>Work Experience</h1>
               <div class="work-exp" id="workexp">
                 <div class="exp-list"></div>
-                <form class="work-exp-form" id="work-exp-form" onsubmit="ShowWorkExp(event)">
+                <form
+                  class="work-exp-form"
+                  id="work-exp-form"
+                  onsubmit="AddWorkExpToList(event)"
+                >
                   <div class="close-btn">
                     <button onclick="closeForm(event)">X</button>
                   </div>
@@ -61,30 +65,30 @@
                     placeholder="Enter your company name:"
                   />
                   <div class="date-section">
-                    <label>Start Date</label>
-                    <label>End Date</label>
-                  </div>
-                  <div class="date-section">
-                    <input
-                      type="date"
-                      id="start-date"
-                      required
-                      placeholder="start-date"
-                    />
-                    <input
-                      type="date"
-                      id="end-date"
-                      required
-                    />
+                    <div>
+                      <label>Start Date:</label>
+                      <label>End Date:</label>
+                    </div>
+                    <div>
+                      <input
+                        type="date"
+                        id="start-date"
+                        required
+                        placeholder="start-date"
+                      />
+                      <input type="date" id="end-date" required />
+                    </div>
                   </div>
                   <textarea
                     id="description"
                     required
                     placeholder="Add job description:"
                   ></textarea>
-                  <button class="save-btn" id="save-info" type="submit">SAVE</button>
+                  <button class="save-btn" id="save-info" type="submit">
+                    SAVE
+                  </button>
                 </form>
-                <button class="add-exp" onclick="AddWorkExperience()">
+                <button class="add-exp" onclick="ShowExpForm()">
                   Add Experience
                 </button>
               </div>
