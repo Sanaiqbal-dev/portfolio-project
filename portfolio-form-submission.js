@@ -1,7 +1,6 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 let expItemNumber = 1;
-
 function SubmitFunc(event) {
   event.preventDefault();
   let userName = document.getElementById("name");

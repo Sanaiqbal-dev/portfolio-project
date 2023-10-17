@@ -21,26 +21,41 @@
       <div class="modal-content">
         <hr class="signup-hr" />
 
-        <div class="form-container">
-          <h2>SIGN UP</h2>
-          <form id="submit-form" onsubmit="SubmitFunc(event)">
-            <section>
-              <input id="name" class="input-field" type="text" placeholder="Name" value="" />
-              <p class="alert-msg" id="alert-name">Please enter your name.</p>
-              <input id="email" class="input-field" placeholder="Email" value="" />
-              <p class="alert-msg" id="alert-email">Please enter correct email address.</p>
-              <input id="password" class="input-field" type="password" placeholder="Password (atleast 8 characters)"
-                value="" />
-              <p class="alert-msg" id="alert-password">Please enter correct password.</p>
-            </section>
+          <div class="form-container">
+            <h2>SIGN UP</h2>
+            <form id="submit-form" onsubmit="SubmitFunc(event)">
+              <section>
+                <input
+                  id="name"
+                  class="input-field"
+                  type="text"
+                  placeholder="Name"
+                  value=""
+                />
+                <p class="alert-msg" id="alert-name">Please enter your name.</p>
+                <input
+                  id="email"
+                  class="input-field"
+                  placeholder="Email"
+                  value=""
+                />
+                <p class="alert-msg" id="alert-email">Please enter correct email address.</p>
+                <input
+                  id="password"
+                  class="input-field"
+                  type="password"
+                  placeholder="Password (atleast 8 characters)"
+                  value=""
+                />
+                <p class="alert-msg" id="alert-password">Please enter correct password.</p>
+              </section>
 
-            <button id="submit" type="submit">SUBMIT</button>
-          </form>
+              <button id="submit" type="submit">SUBMIT</button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="success-msg">Registration successful 🙂</div>
-  </main>
-</body>
-
+      <div id="success-msg">Registration successful 🙂</div>
+    </main>
+  </body>
 </html>
