@@ -1,6 +1,18 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-let expItemNumber = 1;
+let expItemIndex = 1;
+let workExpList = [];
+
+window.addEventListener("load", (event) => {
+
+  if (JSON.parse(localStorage.getItem("work-exp")) != null) {
+    workExpList = JSON.parse(localStorage.getItem("work-exp"));
+    expItemIndex = workExpList.length+1;
+  }
+
+  ShowPersistedData();
+});
+
 function SubmitFunc(event) {
   event.preventDefault();
   let userName = document.getElementById("name");
@@ -76,7 +88,7 @@ function AddWorkExpToList(event) {
   jobDescription.className = "exp-content";
 
   companyName.textContent =
-    expItemNumber + ". " + document.getElementById("company-name").value;
+    expItemIndex + ". " + document.getElementById("company-name").value;
   let startDate = new Date(document.getElementById("start-date").value);
   startDate = startDate.toLocaleDateString("en-us", {
     year: "numeric",
@@ -98,14 +110,43 @@ function AddWorkExpToList(event) {
   workExpItem.appendChild(jobDescription);
   document.querySelector(".exp-list").appendChild(workExpItem);
 
+  workExpList.push({
+    companyName: companyName.textContent,
+    duration: jobDuration.textContent,
+    description: jobDescription.textContent,
+  });
+
+  localStorage.setItem("work-exp", JSON.stringify(workExpList));
+
   resetForm();
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
-  expItemNumber += 1;
+  expItemIndex += 1;
 }
 function resetForm() {
   document.getElementById("company-name").value = "";
   document.getElementById("start-date").value = "";
   document.getElementById("end-date").value = "";
   document.getElementById("description").value = "";
+}
+function ShowPersistedData() {
+  for (let i = 0; i < workExpList.length; i++) {
+    let workExpItem = document.createElement("div");
+    workExpItem.className = "exp-item";
+
+    let companyName = document.createElement("h4");
+    let jobDuration = document.createElement("h5");
+    jobDuration.className = "exp-content";
+    let jobDescription = document.createElement("p");
+    jobDescription.className = "exp-content";
+
+    companyName.textContent = workExpList[i].companyName;
+    jobDuration.textContent = workExpList[i].duration;
+    jobDescription.textContent = workExpList[i].description;
+
+    workExpItem.appendChild(companyName);
+    workExpItem.appendChild(jobDuration);
+    workExpItem.appendChild(jobDescription);
+    document.querySelector(".exp-list").appendChild(workExpItem);
+  }
 }
