@@ -87,7 +87,7 @@ function AddWorkExpToList(event) {
   let jobDescription = document.createElement("p");
   jobDescription.className = "exp-content";
 
-  companyName.textContent =
+  companyName.innerHTML =
     expItemIndex + ". " + document.getElementById("company-name").value;
   let startDate = new Date(document.getElementById("start-date").value);
   startDate = startDate.toLocaleDateString("en-us", {
@@ -102,8 +102,8 @@ function AddWorkExpToList(event) {
     day: "numeric",
   });
 
-  jobDuration.textContent = startDate + " - " + endDate;
-  jobDescription.textContent = document.getElementById("description").value;
+  jobDuration.innerHTML = startDate + " - " + endDate;
+  jobDescription.innerHTML = document.getElementById("description").value;
 
   workExpItem.appendChild(companyName);
   workExpItem.appendChild(jobDuration);
@@ -140,9 +140,9 @@ function ShowPersistedData() {
     let jobDescription = document.createElement("p");
     jobDescription.className = "exp-content";
 
-    companyName.textContent = workExpList[i].companyName;
-    jobDuration.textContent = workExpList[i].duration;
-    jobDescription.textContent = workExpList[i].description;
+    companyName.innerHTML = workExpList[i].companyName;
+    jobDuration.innerHTML = workExpList[i].duration;
+    jobDescription.innerHTML = workExpList[i].description;
 
     workExpItem.appendChild(companyName);
     workExpItem.appendChild(jobDuration);
