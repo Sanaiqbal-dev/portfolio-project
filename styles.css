@@ -29,7 +29,7 @@ header {
   height: auto;
   display: flex;
   flex-direction: row-reverse;
-  padding: 10px 70px;
+  padding: 10px 50px;
   background-color: black;
 }
 
@@ -38,6 +38,7 @@ header {
   font-weight: 600;
   cursor: pointer;
   text-align: center;
+  padding-left: 40px;
 }
 
 .header-options a:hover {
@@ -52,7 +53,7 @@ header {
   margin-top: 0;
   padding: 75px;
 }
-.title-about {
+.title-about{
   margin-top: 0;
 }
 hr {
@@ -61,15 +62,46 @@ hr {
   margin-bottom: 50px;
 }
 #details {
-  padding: 75px;
+  padding: 0px 75px 75px 75px;
 }
-#details h1 {
-  margin-bottom: 50px;
+#details h1{
+  margin-bottom: 50px
+}
+.work-exp {
+  display: flex;
+  flex-direction: column;
+}
+.add-exp {
+  margin: 50px;
+  padding: 15px 50px;
+  border-radius: 7px;
+  color: white;
+  font-size: larger;
+  font-weight: 700;
+  box-shadow: 3px 3px 5px hsl(40, 10%, 76%);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(100, 103, 255, 0.4824054621848739) 0%,
+    rgba(83, 150, 252, 0.77) 100%
+  );
+  border: none;
+  width: auto;
+  align-self: center;
+}
+.add-exp:active {
+  box-shadow: -1px -1px 5px hsl(40, 10%, 76%);
+  background: linear-gradient(
+    -90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(100, 103, 255, 0.4824054621848739) 0%,
+    rgba(83, 150, 252, 0.77) 100%
+  );
 }
 .exp-item {
   margin: 50px;
 }
-.exp-item li {
+.exp-item li{
   margin-bottom: 10px;
 }
 #heading {
@@ -100,7 +132,7 @@ a {
   color: white;
 }
 
-.inline-div {
+.inline-div{
   display: inline-block;
 }
 
@@ -109,6 +141,7 @@ a {
 
   color: hsl(40, 13%, 32%);
 }
+
 .modal-content {
   width: 450px;
   height: auto;
@@ -117,15 +150,18 @@ a {
   margin: 20px auto;
   box-shadow: 10px 10px 10px hsl(40, 10%, 76%);
 }
+
 .modal-content h2 {
   text-align: center;
 }
+
 .form-container {
   margin-top: 0px;
   display: flex;
   flex-direction: column;
   padding: 10px 30px 0px 30px;
 }
+
 .input-field {
   display: block;
   width: 90%;
@@ -137,6 +173,7 @@ a {
   padding: 5px;
   font-size: medium;
 }
+
 .alert-msg {
   display: none;
   font-size: medium;
@@ -171,6 +208,7 @@ a {
   margin: 0px;
   background: hsl(40, 13%, 32%);
 }
+
 #success-msg {
   display: none;
   width: max-content;
@@ -181,6 +219,84 @@ a {
   font-size: xx-large;
   font-weight: 700;
 }
-.form-container input{
-    border: 1px solid grey;
+.work-exp-form {
+  width: 65%;
+  display: none;
+  flex-direction: column;
+  align-items: start;
+  border-radius: 5px;
+  background-color: #f4f3f1;
+  box-shadow: 5px 5px 5px lightgrey;
+  padding: 10px;
+  align-self: center;
+  margin-top: 50px;
+}
+.work-exp-form input,
+textarea {
+  display: block;
+  width: 85%;
+  height: 30px;
+  background-color: white;
+  border: none;
+  font-size: small;
+  margin: 10px auto;
+  padding: 0px 10px;
+}
+
+.work-exp-form h3 {
+  margin: 30px auto;
+}
+/* #end-date {
+  margin-left: 20px;
+} */
+.date-section {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+}
+
+.date-section div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.date-section div > label {
+  width: 50%;
+  font-weight: 700;
+}
+
+textarea {
+  min-height: 100px;
+  padding: 10px;
+}
+.save-btn {
+  margin: 35px auto;
+  padding: 10px 50px;
+  border: none;
+  background-color: orange;
+  color: white;
+  font-size: large;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px lightgrey;
+}
+.save-btn:hover {
+  background-color: rgb(222, 146, 5);
+}
+.close-btn {
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+}
+.exp-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f4f3f1;
+}
+.exp-content {
+  margin-left: 20px;
 }

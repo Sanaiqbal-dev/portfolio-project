@@ -1,5 +1,6 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
+let expItemNumber = 1;
 function SubmitFunc(event) {
   event.preventDefault();
   let userName = document.getElementById("name");
@@ -50,4 +51,61 @@ function SubmitFunc(event) {
     successMsg.style.display = "block";
     successMsg.scrollIntoView({ behavior: "smooth" });
   }
+}
+
+function closeForm(event) {
+  event.preventDefault();
+  document.querySelector(".work-exp-form").style.display = "none";
+  document.querySelector(".add-exp").style.display = "block";
+}
+function ShowExpForm() {
+  document.querySelector(".work-exp-form").style.display = "flex";
+  document.querySelector(".add-exp").style.display = "none";
+}
+
+function AddWorkExpToList(event) {
+  event.preventDefault();
+
+  let workExpItem = document.createElement("div");
+  workExpItem.className = "exp-item";
+
+  let companyName = document.createElement("h4");
+  let jobDuration = document.createElement("h5");
+  jobDuration.className = "exp-content";
+  let jobDescription = document.createElement("p");
+  jobDescription.className = "exp-content";
+
+  companyName.textContent =
+    expItemNumber + ". " + document.getElementById("company-name").value;
+  let startDate = new Date(document.getElementById("start-date").value);
+  startDate = startDate.toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  let endDate = new Date(document.getElementById("end-date").value);
+  endDate = endDate.toLocaleDateString("en-us", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+
+  jobDuration.textContent = startDate + " - " + endDate;
+  jobDescription.textContent = document.getElementById("description").value;
+
+  workExpItem.appendChild(companyName);
+  workExpItem.appendChild(jobDuration);
+  workExpItem.appendChild(jobDescription);
+  document.querySelector(".exp-list").appendChild(workExpItem);
+
+  resetForm();
+  document.querySelector(".work-exp-form").style.display = "none";
+  document.querySelector(".add-exp").style.display = "block";
+  expItemNumber += 1;
+}
+function resetForm() {
+  document.getElementById("company-name").value = "";
+  document.getElementById("start-date").value = "";
+  document.getElementById("end-date").value = "";
+  document.getElementById("description").value = "";
 }
