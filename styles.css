@@ -53,7 +53,7 @@ header {
   margin-top: 0;
   padding: 75px;
 }
-.title-about{
+.title-about {
   margin-top: 0;
 }
 hr {
@@ -64,8 +64,8 @@ hr {
 #details {
   padding: 0px 75px 75px 75px;
 }
-#details h1{
-  margin-bottom: 50px
+#details h1 {
+  margin-bottom: 50px;
 }
 .work-exp {
   display: flex;
@@ -101,7 +101,7 @@ hr {
 .exp-item {
   margin: 50px;
 }
-.exp-item li{
+.exp-item li {
   margin-bottom: 10px;
 }
 #heading {
@@ -132,7 +132,7 @@ a {
   color: white;
 }
 
-.inline-div{
+.inline-div {
   display: inline-block;
 }
 
@@ -231,8 +231,8 @@ a {
   align-self: center;
   margin-top: 50px;
 }
-.work-exp-form input,
-textarea {
+#company-name,
+#description {
   display: block;
   width: 85%;
   height: 30px;
@@ -242,32 +242,45 @@ textarea {
   margin: 10px auto;
   padding: 0px 10px;
 }
-
 .work-exp-form h3 {
   margin: 30px auto;
 }
-/* #end-date {
-  margin-left: 20px;
-} */
 .date-section {
   width: 90%;
+  margin: 10px auto;
+  padding: 0px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 10px auto;
+  gap: 10px;
 }
 
-.date-section div {
+.date-section-labels,
+.date-section-values {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
-.date-section div > label {
+.date-section-values > *{
+  width: 100%;
+}
+.checkbox-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.label-employer{
+  font-size: smaller;
+}
+
+.date-section-labels > label {
   width: 50%;
-  font-weight: 700;
+  font-size: small;
+  font-weight: 600;
 }
 
 textarea {
@@ -301,9 +314,9 @@ textarea {
   margin-left: 20px;
 }
 
-.alert-text{
+.alert-text {
   color: red;
   display: none;
 
-  margin:0px 25px;
+  margin: 0px 25px;
 }

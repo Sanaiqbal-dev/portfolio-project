@@ -66,18 +66,17 @@
                     placeholder="Enter your company name:"
                   />
                   <div class="date-section">
-                    <div>
+                    <div class="date-section-labels">
                       <label>Start Date:</label>
                       <label>End Date:</label>
+                      <label></label>
                     </div>
-                    <div>
-                      <input
-                        type="date"
-                        id="start-date"
-                        required
-                        placeholder="start-date"
-                      />
-                      <input type="date" id="end-date" required />
+                    <div class="date-section-values">
+                      <input type="date" id="start-date" required />
+                      <input type="date" id="end-date" required onclick="SetMinDate()"/>
+                      <div class="checkbox-section">
+                        <input type="checkbox" class="checkbox" onchange="CheckboxStateChanged()"/><label class="label-employer">Current Employer</label>
+                      </div>
                     </div>
                   </div>
                   <textarea

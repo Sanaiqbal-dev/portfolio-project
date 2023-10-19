@@ -1,6 +1,12 @@
 const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 let expItemNumber = 1;
+
+window.onload = () => {
+  const [today] = new Date().toISOString().split("T");
+  document.getElementById("end-date").max = today;
+  document.getElementById("start-date").max = today;
+};
 function SubmitFunc(event) {
   event.preventDefault();
   let userName = document.getElementById("name");
@@ -59,13 +65,31 @@ function closeForm(event) {
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
 }
+function CheckboxStateChanged() {
+  if (document.querySelector(".checkbox").checked) {
+    document.getElementById("end-date").disabled = true;
+  } else {
+    document.getElementById("end-date").disabled = false;
+  }
+}
+function SetMinDate() {
+  document.getElementById("end-date").min =
+    document.getElementById("start-date").value;
+}
 function ShowExpForm() {
   document.querySelector(".work-exp-form").style.display = "flex";
   document.querySelector(".add-exp").style.display = "none";
 }
 function ValidateForm(event) {
   event.preventDefault();
-  if (document.getElementById("description").value.trim().length === 0) {
+  if (
+    Date.parse(document.getElementById("start-date").value) >=
+    Date.parse(document.getElementById("end-date").value)
+  ) {
+    alert("End date should be greater than Start date");
+    document.getElementById("EndDate").value = "";
+  }
+  else if (document.getElementById("description").value.trim().length === 0) {
     document.querySelector(".alert-text").style.display = "block";
     document.getElementById("description").focus();
   } else {
@@ -94,12 +118,18 @@ function AddWorkExpToList(event) {
     month: "short",
     day: "numeric",
   });
-  let endDate = new Date(document.getElementById("end-date").value);
-  endDate = endDate.toLocaleDateString("en-us", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
+
+  let endDate = "";
+  if (document.querySelector(".checkbox").checked) {
+    endDate = "Present";
+  } else {
+    endDate = new Date(document.getElementById("end-date").value);
+    endDate = endDate.toLocaleDateString("en-us", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  }
 
   jobDuration.textContent = startDate + " - " + endDate;
   jobDescription.textContent = document.getElementById("description").value;
@@ -109,14 +139,15 @@ function AddWorkExpToList(event) {
   workExpItem.appendChild(jobDescription);
   document.querySelector(".exp-list").appendChild(workExpItem);
 
-  resetForm();
-  document.querySelector(".work-exp-form").style.display = "none";
-  document.querySelector(".add-exp").style.display = "block";
+  closeForm();
   expItemNumber += 1;
 }
 function resetForm() {
   document.getElementById("company-name").value = "";
   document.getElementById("start-date").value = "";
+  document.getElementById("end-date").removeAttribute("min");
   document.getElementById("end-date").value = "";
+  document.getElementById("end-date").disabled = false;
+  document.querySelector(".checkbox").checked = false;
   document.getElementById("description").value = "";
 }
