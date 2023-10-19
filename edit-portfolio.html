@@ -52,7 +52,7 @@
                 <form
                   class="work-exp-form"
                   id="work-exp-form"
-                  onsubmit="AddWorkExpToList(event)"
+                  onsubmit="ValidateForm(event)"
                 >
                   <div class="close-btn">
                     <button onclick="closeForm(event)">X</button>
@@ -60,6 +60,7 @@
                   <h3>Fill work experience details:</h3>
                   <input
                     type="text"
+                    pattern=".*\S+.*"
                     id="company-name"
                     required
                     placeholder="Enter your company name:"
@@ -84,6 +85,7 @@
                     required
                     placeholder="Add job description:"
                   ></textarea>
+                  <p class="alert-text">Enter valid job description.</p>
                   <button class="save-btn" id="save-info" type="submit">
                     SAVE
                   </button>

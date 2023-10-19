@@ -55,12 +55,23 @@ function SubmitFunc(event) {
 
 function closeForm(event) {
   event.preventDefault();
+  resetForm();
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
 }
 function ShowExpForm() {
   document.querySelector(".work-exp-form").style.display = "flex";
   document.querySelector(".add-exp").style.display = "none";
+}
+function ValidateForm(event) {
+  event.preventDefault();
+  if (document.getElementById("description").value.trim().length === 0) {
+    document.querySelector(".alert-text").style.display = "block";
+    document.getElementById("description").focus();
+  } else {
+    document.querySelector(".alert-text").style.display = "none";
+    AddWorkExpToList(event);
+  }
 }
 
 function AddWorkExpToList(event) {

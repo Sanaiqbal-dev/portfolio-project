@@ -300,3 +300,10 @@ textarea {
 .exp-content {
   margin-left: 20px;
 }
+
+.alert-text{
+  color: red;
+  display: none;
+
+  margin:0px 25px;
+}
