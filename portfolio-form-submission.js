@@ -4,8 +4,6 @@ let expItemIndex = 1;
 let workExpList = [];
 
 window.addEventListener("load", (event) => {
-
-  
   if (JSON.parse(localStorage.getItem("work-exp")) != null) {
     workExpList = JSON.parse(localStorage.getItem("work-exp"));
     expItemIndex = workExpList.length + 1;
@@ -79,7 +77,7 @@ function ShowExpForm() {
 function AddWorkExpToList(event) {
   event.preventDefault();
 
-  let companyName =document.getElementById("company-name").value;
+  let companyName = document.getElementById("company-name").value;
   let startDate = new Date(document.getElementById("start-date").value);
   startDate = startDate.toLocaleDateString("en-us", {
     year: "numeric",
@@ -97,7 +95,7 @@ function AddWorkExpToList(event) {
   let jobDescription = document.getElementById("description").value;
 
   workExpList.push({
-    id:expItemIndex,
+    id: expItemIndex,
     companyName: companyName,
     duration: jobDuration,
     description: jobDescription,
@@ -119,9 +117,6 @@ function AddWorkExpToList(event) {
   ShowPersistedData();
 }
 
-
-
-
 function resetForm() {
   document.getElementById("company-name").value = "";
   document.getElementById("start-date").value = "";
@@ -129,27 +124,29 @@ function resetForm() {
   document.getElementById("description").value = "";
 }
 
-
 function ShowPersistedData() {
-  // document.querySelector(".exp-list").innerHTML("");
   for (let i = 0; i < workExpList.length; i++) {
     let workExpItem = document.createElement("div");
     workExpItem.className = "exp-item";
+    workExpItem.id = workExpList[i].id;
 
-    
     const editButton = document.createElement("button");
     editButton.className = "edit-btn";
     const imgEdit = document.createElement("img");
     imgEdit.src = "res/ic_edit.png";
     editButton.appendChild(imgEdit);
-    editButton.addEventListener("click", editItem(event));
+    editButton.addEventListener("click", function(e){
+      editItem(e);
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-btn";
     const imgDelete = document.createElement("img");
     imgDelete.src = "res/ic_delete.png";
     deleteButton.appendChild(imgDelete);
-    deleteButton.addEventListener("click", deleteItem);
+    deleteButton.addEventListener("click", function(e){
+      deleteItem(e);
+    });
 
     let headerEvents = document.createElement("div");
     headerEvents.className = "header-events";
@@ -163,7 +160,8 @@ function ShowPersistedData() {
     let jobDescription = document.createElement("p");
     jobDescription.className = "exp-content";
 
-    companyName.innerHTML = workExpList[i].id + ". " +  workExpList[i].companyName;
+    companyName.innerHTML =
+      workExpList[i].id + ". " + workExpList[i].companyName;
     jobDuration.innerHTML = workExpList[i].duration;
     jobDescription.innerHTML = workExpList[i].description;
 
@@ -175,5 +173,10 @@ function ShowPersistedData() {
   }
 }
 
-function editItem() {}
-function deleteItem() {}
+function editItem(e) {
+  let parent = e.target.parentNode;
+  console.log(parent.parentNode.parentNode.id);
+}
+function deleteItem(e) {
+  console.log(e.target);
+}
