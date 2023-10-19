@@ -4,13 +4,21 @@ let expItemIndex = 1;
 let workExpList = [];
 
 window.addEventListener("load", (event) => {
-
-  if (JSON.parse(localStorage.getItem("work-exp")) != null) {
-    workExpList = JSON.parse(localStorage.getItem("work-exp"));
-    expItemIndex = workExpList.length+1;
+  if (typeof localStorage !== "undefined") {
+    try {
+      if (JSON.parse(localStorage.getItem("work-exp")) != null) {
+        workExpList = JSON.parse(localStorage.getItem("work-exp"));
+        expItemIndex = workExpList.length + 1;
+      }
+      ShowPersistedData();
+    } catch (error) {
+      if (error == QUOTA_EXCEEDED_ERR) {
+        alert('Local storage quota exceeded!');
+      }
+    }
+  } else {
+    alert("Local Storage is not supported in this environment.");
   }
-
-  ShowPersistedData();
 });
 
 function SubmitFunc(event) {
@@ -116,8 +124,21 @@ function AddWorkExpToList(event) {
     description: jobDescription.textContent,
   });
 
-  localStorage.setItem("work-exp", JSON.stringify(workExpList));
+  
 
+
+  if (typeof localStorage !== "undefined") {
+    try {
+      localStorage.setItem("work-exp", JSON.stringify(workExpList));
+    } catch (error) {
+      if (error == QUOTA_EXCEEDED_ERR) {
+        alert('Local storage quota exceeded!');
+      }
+    }
+  } else {
+    alert("Local Storage is not supported in this environment.");
+  }
+  
   resetForm();
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
