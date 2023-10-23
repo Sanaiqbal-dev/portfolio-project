@@ -28,8 +28,6 @@ const submitFunc = (event) => {
   let invalidEmailAlert = document.getElementById("alert-email");
   let invalidPasswordAlert = document.getElementById("alert-password");
 
-  let successMsg = document.getElementById("success-msg");
-
   let isUserNameValid,
     isEmailValid,
     isPasswordValid = false;
@@ -65,9 +63,31 @@ const submitFunc = (event) => {
   }
 
   if (isUserNameValid && isEmailValid && isPasswordValid) {
-    successMsg.style.display = "block";
-    successMsg.scrollIntoView({ behavior: "smooth" });
+    sendAPIRequest(userName.value, email.value, password.value);
   }
+};
+
+const sendAPIRequest = (userName, email, password) => {
+  fetch("https://dummyjson.com/users/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: userName,
+      email: email,
+      password: password,
+    }),
+  })
+    .then((res) => res.json())
+    .then(console.log)
+    .catch((error) => {
+      alert("Request in not successfull.");
+    })
+    // .then(() => {
+    //   console.log;
+    //   let successMsg = document.getElementById("success-msg");
+    //   successMsg.style.display = "block";
+    //   successMsg.scrollIntoView({ behavior: "smooth" });
+    // });
 };
 
 const closeForm = (event) => {
