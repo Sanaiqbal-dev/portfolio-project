@@ -4,13 +4,11 @@ let expItemIndex = 1;
 let workExpList = [];
 
 window.addEventListener("load", (event) => {
-  // localStorage.clear();
-
   setDateLimits();
   fetchUpdatedData();
 });
 
-function setDateLimits() {
+const setDateLimits = () => {
   const [today] = new Date().toISOString().split("T");
   if (
     document.getElementById("end-date") &&
@@ -19,8 +17,8 @@ function setDateLimits() {
     document.getElementById("end-date").max = today;
     document.getElementById("start-date").max = today;
   }
-}
-function submitFunc(event) {
+};
+const submitFunc = (event) => {
   event.preventDefault();
   let userName = document.getElementById("name");
   let email = document.getElementById("email");
@@ -70,19 +68,19 @@ function submitFunc(event) {
     successMsg.style.display = "block";
     successMsg.scrollIntoView({ behavior: "smooth" });
   }
-}
+};
 
-function closeForm(event) {
+const closeForm = (event) => {
   event.preventDefault();
   resetForm();
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
-}
-function checkboxStateChanged() {
+};
+const checkboxStateChanged = () => {
   document.querySelector("#checkbox").checked
     ? (document.getElementById("end-date").disabled = true)
     : (document.getElementById("end-date").disabled = false);
-}
+};
 
 let listCheckboxStateChanged = (e) => {
   let dateSection = e.target.closest(".date-section-values-editable");
@@ -95,15 +93,15 @@ let listCheckboxStateChanged = (e) => {
     dateSection.querySelector("#end-date-edit").value = "";
   }
 };
-function setMinDate() {
+const setMinDate = () => {
   document.getElementById("end-date").min =
     document.getElementById("start-date").value;
-}
-function showExpForm() {
+};
+const showExpForm = () => {
   document.querySelector(".work-exp-form").style.display = "flex";
   document.querySelector(".add-exp").style.display = "none";
-}
-function validateForm(event) {
+};
+const validateForm = (event) => {
   event.preventDefault();
   if (
     !document.getElementById("end-date").disabled &&
@@ -119,9 +117,9 @@ function validateForm(event) {
     document.querySelector(".alert-text").style.display = "none";
     addWorkExpToList(event);
   }
-}
+};
 
-function addWorkExpToList(event) {
+const addWorkExpToList = (event) => {
   event.preventDefault();
 
   let companyName = document.getElementById("company-name").value;
@@ -161,9 +159,9 @@ function addWorkExpToList(event) {
   document.querySelector(".work-exp-form").style.display = "none";
   document.querySelector(".add-exp").style.display = "block";
   expItemIndex += 1;
-}
+};
 
-function setUpdatedData(expList) {
+const setUpdatedData = (expList) => {
   if (typeof localStorage !== "undefined") {
     try {
       localStorage.setItem("work-exp", JSON.stringify(expList));
@@ -175,9 +173,9 @@ function setUpdatedData(expList) {
   } else {
     alert("Local Storage is not supported in this environment.");
   }
-}
+};
 
-function fetchUpdatedData() {
+const fetchUpdatedData = () => {
   if (typeof localStorage !== "undefined") {
     try {
       if (JSON.parse(localStorage.getItem("work-exp")) != null) {
@@ -201,8 +199,8 @@ function fetchUpdatedData() {
   } else {
     alert("Local Storage is not supported in this environment.");
   }
-}
-function resetForm() {
+};
+const resetForm = () => {
   document.getElementById("company-name").value = "";
   document.getElementById("start-date").value = "";
   document.getElementById("end-date").removeAttribute("min");
@@ -210,9 +208,9 @@ function resetForm() {
   document.getElementById("end-date").disabled = false;
   document.querySelector("#checkbox").checked = false;
   document.getElementById("description").value = "";
-}
+};
 
-function showPersistedData(expData) {
+const showPersistedData = (expData) => {
   for (let i = 0; i < expData.length; i++) {
     let workExpItem = document.createElement("div");
     workExpItem.className = "exp-item";
@@ -402,6 +400,10 @@ function showPersistedData(expData) {
     workExpItem.appendChild(jobDescriptionDiv);
     workExpItem.appendChild(saveButton);
 
+    let seperator = document.createElement("hr");
+    seperator.className = "seperator";
+    workExpItem.appendChild(seperator);
+
     editButton.addEventListener("click", function (e) {
       editItem(e);
     });
@@ -416,9 +418,9 @@ function showPersistedData(expData) {
       document.querySelector(".home-exp-list").appendChild(workExpItem);
     }
   }
-}
+};
 
-function editItem(e) {
+const editItem = (e) => {
   let expItem = e.target.closest(".exp-item");
 
   let headerEvents = expItem.querySelector(".header-events");
@@ -476,7 +478,7 @@ function editItem(e) {
       resetEditView(expItem, companyName, startDate, endDate, jobDescription);
     }
   });
-}
+};
 
 const isDataValid = (
   expItem,
@@ -549,7 +551,8 @@ let resetEditView = (
   headerEvents.style.display = "flex";
   let companyName = expItem.querySelector(".company-name");
   companyName.style.display = "block";
-  companyName.innerHTML = (collection.indexOf(expItem) +1) + ". " + companyNameText;
+  companyName.innerHTML =
+    collection.indexOf(expItem) + 1 + ". " + companyNameText;
   let companyNameEditable = expItem.querySelector(".company-name-editable");
   companyNameEditable.style.display = "none";
   let jobDuration = expItem.querySelector(".job-duration");
@@ -568,11 +571,25 @@ let resetEditView = (
   saveButton.style.display = "none";
 };
 
-function deleteItem(e) {
+const deleteItem = (e) => {
   const selectedItem = e.target.closest(".exp-item");
   selectedItem.remove();
 
   const newExpList = workExpList.filter((item) => item.id != selectedItem.id);
   workExpList = newExpList;
   setUpdatedData(workExpList);
-}
+};
+
+filterWorkExpList = (event) => {
+  let searchInput = event.target.value;
+
+  const expItems = document.getElementsByClassName("exp-item");
+
+  for (let i = expItems.length - 1; i >= 0; i--) {
+    const itemTitle = expItems[i].querySelector(".company-name").textContent;
+
+    itemTitle && itemTitle.toLowerCase().includes(searchInput.toLowerCase())
+      ? (expItems[i].style.display = "block")
+      : (expItems[i].style.display = "none");
+  }
+};
