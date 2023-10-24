@@ -49,28 +49,35 @@ header {
   display: flex;
   flex-direction: column;
 }
+
 .top-row {
   margin-top: 0;
   padding: 75px;
 }
+
 .title-about {
   margin-top: 0;
 }
+
 hr {
   border-top: 1px dotted #5d5648;
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
 #details {
   padding: 0px 75px 75px 75px;
 }
+
 #details h1 {
   margin-bottom: 50px;
 }
+
 .work-exp {
   display: flex;
   flex-direction: column;
 }
+
 .add-exp {
   margin: 50px;
   padding: 15px 50px;
@@ -89,6 +96,7 @@ hr {
   width: auto;
   align-self: center;
 }
+
 .add-exp:active {
   box-shadow: -1px -1px 5px hsl(40, 10%, 76%);
   background: linear-gradient(
@@ -98,12 +106,42 @@ hr {
     rgba(83, 150, 252, 0.77) 100%
   );
 }
+
 .exp-item {
-  margin: 50px;
+  margin: 30px;
 }
+
 .exp-item li {
   margin-bottom: 10px;
 }
+
+.exp-item h4 {
+  margin: 0;
+}
+
+.header-events {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+.header-events img {
+  width: 18px;
+  height: 18px;
+}
+
+.edit-btn,
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  height: 30px;
+  border: none;
+  background-color: rgb(47, 47, 163);
+  cursor: pointer;
+}
+
 #heading {
   text-align: center;
   margin-top: -15px;
@@ -113,7 +151,6 @@ hr {
 #picture {
   height: auto;
   background-color: #c0bdb8;
-
   text-align: center;
   padding: 75px 30px;
 }
@@ -124,6 +161,7 @@ footer {
   padding: 10px 70px;
   background-color: black;
 }
+
 footer a:hover {
   color: orange;
 }
@@ -138,7 +176,6 @@ a {
 
 .signup-modal {
   display: block;
-
   color: hsl(40, 13%, 32%);
 }
 
@@ -195,6 +232,7 @@ a {
   color: white;
   margin-top: 50px;
 }
+
 #submit:hover {
   background: #918d86;
 }
@@ -219,6 +257,7 @@ a {
   font-size: xx-large;
   font-weight: 700;
 }
+
 .work-exp-form {
   width: 65%;
   display: none;
@@ -231,6 +270,7 @@ a {
   align-self: center;
   margin-top: 50px;
 }
+
 #company-name,
 #description {
   display: block;
@@ -242,9 +282,11 @@ a {
   margin: 10px auto;
   padding: 0px 10px;
 }
+
 .work-exp-form h3 {
   margin: 30px auto;
 }
+
 .date-section {
   width: 90%;
   margin: 10px auto;
@@ -256,8 +298,17 @@ a {
   gap: 10px;
 }
 
+.date-section-editable {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px auto;
+  gap: 10px;
+}
+
 .date-section-labels,
-.date-section-values {
+.date-section-values,
+.date-section-values-editable {
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -265,15 +316,19 @@ a {
   justify-content: space-between;
   gap: 10px;
 }
-.date-section-values > *{
+
+.date-section-values > *,
+.date-section-values-editable > * {
   width: 100%;
 }
+
 .checkbox-section {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.label-employer{
+
+.label-employer {
   font-size: smaller;
 }
 
@@ -284,9 +339,11 @@ a {
 }
 
 textarea {
+  width: 100%;
   min-height: 100px;
   padding: 10px;
 }
+
 .save-btn {
   margin: 35px auto;
   padding: 10px 50px;
@@ -297,19 +354,23 @@ textarea {
   border-radius: 10px;
   box-shadow: 3px 3px 10px lightgrey;
 }
+
 .save-btn:hover {
   background-color: rgb(222, 146, 5);
 }
+
 .close-btn {
   width: 100%;
   display: flex;
   flex-direction: row-reverse;
 }
+
 .exp-list {
   max-height: 400px;
   overflow-y: auto;
   background-color: #f4f3f1;
 }
+
 .exp-content {
   margin-left: 20px;
 }
@@ -319,4 +380,24 @@ textarea {
   display: none;
 
   margin: 0px 25px;
+}
+
+.save-btn-editable {
+  margin: auto;
+  padding: 0px 50px;
+}
+
+.search-text {
+  width: auto;
+  height: 25px;
+  margin-bottom: 30px;
+  border: none;
+  color: hsl(40, 13%, 32%);
+  background-color: #f4f3f1;
+  font-weight: 700;
+  outline: none;
+  font-size: medium;
+  box-shadow: -3px 3px 10px hsl(40, 10%, 76%);
+  border-radius: 10px;
+  padding: 10px 20px;
 }

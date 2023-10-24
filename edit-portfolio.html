@@ -48,11 +48,12 @@
             <div>
               <h1>Work Experience</h1>
               <div class="work-exp" id="workexp">
-                <div class="exp-list"></div>
+                <input class="search-text" id="search-work-exp" placeholder="Search Here..." oninput="filterWorkExpList(event)"/>
+                <div class="exp-list" id="exp-list"></div>
                 <form
                   class="work-exp-form"
                   id="work-exp-form"
-                  onsubmit="ValidateForm(event)"
+                  onsubmit="validateForm(event)"
                 >
                   <div class="close-btn">
                     <button onclick="closeForm(event)">X</button>
@@ -73,11 +74,12 @@
                     </div>
                     <div class="date-section-values">
                       <input type="date" id="start-date" required />
-                      <input type="date" id="end-date" required onclick="SetMinDate()"/>
+                      <input type="date" id="end-date" required onclick="setMinDate()"/>
                       <div class="checkbox-section">
-                        <input type="checkbox" class="checkbox" onchange="CheckboxStateChanged()"/><label class="label-employer">Current Employer</label>
+                        <input type="checkbox" class="checkbox" id="checkbox" onchange="checkboxStateChanged()"/><label class="label-employer">Current Employer</label>
                       </div>
                     </div>
+                    
                   </div>
                   <textarea
                     id="description"
@@ -89,7 +91,7 @@
                     SAVE
                   </button>
                 </form>
-                <button class="add-exp" onclick="ShowExpForm()">
+                <button class="add-exp" onclick="showExpForm()">
                   Add Experience
                 </button>
               </div>
