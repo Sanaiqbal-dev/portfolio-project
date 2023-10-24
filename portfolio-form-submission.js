@@ -20,6 +20,8 @@ const setDateLimits = () => {
 };
 const submitFunc = (event) => {
   event.preventDefault();
+  
+  let responseMsg = document.getElementById("response-msg");  
   let userName = document.getElementById("name");
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -27,8 +29,6 @@ const submitFunc = (event) => {
   let invalidNameAlert = document.getElementById("alert-name");
   let invalidEmailAlert = document.getElementById("alert-email");
   let invalidPasswordAlert = document.getElementById("alert-password");
-
-  let successMsg = document.getElementById("success-msg");
 
   let isUserNameValid,
     isEmailValid,
@@ -65,9 +65,36 @@ const submitFunc = (event) => {
   }
 
   if (isUserNameValid && isEmailValid && isPasswordValid) {
-    successMsg.style.display = "block";
-    successMsg.scrollIntoView({ behavior: "smooth" });
+    submitApiRequest(userName.value, email.value, password.value)
+      .then(() => {
+      })
+      .then(() => {
+        responseMsg.style.display = "block";
+        responseMsg.innerHTML = "Registration successful. 🙂";
+        responseMsg.scrollIntoView({ behavior: "smooth" });
+
+        userName.value = "";
+        email.value = "";
+        password.value = "";
+      })
+      .catch(() => {
+        responseMsg.style.display = "block";
+        responseMsg.innerHTML = "Failed to register. &#128542;";
+        responseMsg.scrollIntoView({ behavior: "smooth" });
+      });
   }
+};
+
+const submitApiRequest = async (userName, email, password) => {
+  return await fetch("https://dummyjson.com/users/add", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: userName,
+      email: email,
+      password: password,
+    }),
+  });
 };
 
 const closeForm = (event) => {
@@ -187,10 +214,9 @@ const fetchUpdatedData = () => {
           JSON.parse(item)
         );
         workExpList = mergedArray;
-        expItemIndex = workExpList[workExpList.length - 1].id + 1;
+        expItemIndex = parseInt(workExpList[workExpList.length - 1].id) + 1;
       }
       showPersistedData(workExpList);
-      console.log(workExpList);
     } catch (error) {
       if (error == QUOTA_EXCEEDED_ERR) {
         alert("Local storage quota exceeded!");
@@ -515,12 +541,6 @@ const isDataValid = (
   return true;
 };
 let saveUpdatedData = (id, companyName, startDate, endDate, jobDescription) => {
-  console.log(id);
-  console.log(companyName);
-  console.log(startDate);
-  console.log(endDate);
-  console.log(jobDescription);
-
   let updatedItem = {
     id: id,
     companyName: companyName,
@@ -545,7 +565,6 @@ let resetEditView = (
   jobDescriptionText
 ) => {
   let collection = Array.from(document.querySelectorAll(".exp-item"));
-  console.log("index is ", collection.indexOf(expItem));
 
   let headerEvents = expItem.querySelector(".header-events");
   headerEvents.style.display = "flex";
