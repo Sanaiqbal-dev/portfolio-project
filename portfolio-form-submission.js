@@ -28,6 +28,9 @@ const submitFunc = (event) => {
   let invalidEmailAlert = document.getElementById("alert-email");
   let invalidPasswordAlert = document.getElementById("alert-password");
 
+  let successMsg = document.getElementById("success-msg");
+  let errorMsg = document.getElementById("error-msg");
+
   let isUserNameValid,
     isEmailValid,
     isPasswordValid = false;
@@ -63,12 +66,29 @@ const submitFunc = (event) => {
   }
 
   if (isUserNameValid && isEmailValid && isPasswordValid) {
-    sendAPIRequest(userName.value, email.value, password.value);
+    submitApiRequest(userName.value, email.value, password.value)
+      .then((res) => {
+        res.json();
+      })
+      .then(() => {
+        successMsg.style.display = "block";
+        errorMsg.style.display = "none";
+        successMsg.scrollIntoView({ behavior: "smooth" });
+
+        userName.value = "";
+        email.value = "";
+        password.value = "";
+      })
+      .catch(() => {
+        errorMsg.style.display = "block";
+        successMsg.style.display = "none";
+        errorMsg.scrollIntoView({ behavior: "smooth" });
+      });
   }
 };
 
-const sendAPIRequest = (userName, email, password) => {
-  fetch("https://dummyjson.com/users/add", {
+const submitApiRequest = async (userName, email, password) => {
+ return await fetch("https://dummyjson.com/users/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -77,17 +97,9 @@ const sendAPIRequest = (userName, email, password) => {
       password: password,
     }),
   })
-    .then((res) => res.json())
-    .then(console.log)
-    .catch((error) => {
-      alert("Request in not successfull.");
-    })
-    // .then(() => {
-    //   console.log;
-    //   let successMsg = document.getElementById("success-msg");
-    //   successMsg.style.display = "block";
-    //   successMsg.scrollIntoView({ behavior: "smooth" });
-    // });
+    // .then((res) => {
+    //   return res;
+    // })
 };
 
 const closeForm = (event) => {
@@ -207,7 +219,7 @@ const fetchUpdatedData = () => {
           JSON.parse(item)
         );
         workExpList = mergedArray;
-        expItemIndex = workExpList[workExpList.length - 1].id + 1;
+        expItemIndex = parseInt(workExpList[workExpList.length - 1].id) + 1;
       }
       showPersistedData(workExpList);
       console.log(workExpList);
