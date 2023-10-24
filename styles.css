@@ -401,3 +401,56 @@ textarea {
   border-radius: 10px;
   padding: 10px 20px;
 }
+
+.external-data-div {
+  width: 80%;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.info-table {
+  background-color: transparent;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.info-table tr {
+  height: 50px;
+  width: 100%;
+  gap: 10px;
+}
+.image-cell, .id-cell {
+  background-color: #83817e;
+  color: white;
+  width: 10%;
+}
+
+.title-cell,
+.url-label-cell {
+  background-color: #83817e;
+  color: white;
+  width: 40%;
+}
+.table-container {
+  width: 70%;
+  height: 400px;
+  overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+}
+
+.info-table caption {
+  background-color: #5d5648;
+  color: white;
+  font: bold small-caps 30px "Figtree";
+  padding: 10px;
+  margin: 50px 0px 20px 0px;
+}
+
+.url-cell:hover {
+  color: blue;
+  cursor: pointer;
+}
