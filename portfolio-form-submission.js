@@ -6,6 +6,7 @@ let workExpList = [];
 window.addEventListener("load", (event) => {
   setDateLimits();
   fetchUpdatedData();
+  fetchExternalData();
 });
 
 const setDateLimits = () => {
@@ -411,12 +412,14 @@ const showPersistedData = (expData) => {
       deleteItem(e);
     });
 
-    if (document.querySelector(".exp-list")) {
-      workExpItem.insertBefore(headerEvents, workExpItem.firstChild);
-      document.querySelector(".exp-list").appendChild(workExpItem);
-    } else {
-      document.querySelector(".home-exp-list").appendChild(workExpItem);
-    }
+    try {
+      if (document.querySelector(".exp-list")) {
+        workExpItem.insertBefore(headerEvents, workExpItem.firstChild);
+        document.querySelector(".exp-list").appendChild(workExpItem);
+      } else {
+        document.querySelector(".home-exp-list").appendChild(workExpItem);
+      }
+    } catch (error) {}
   }
 };
 
@@ -592,4 +595,48 @@ filterWorkExpList = (event) => {
       ? (expItems[i].style.display = "block")
       : (expItems[i].style.display = "none");
   }
+};
+
+const fetchExternalData = () => {
+  const tableDataset = document.querySelector("#info-table");
+
+  getExternalData()
+    .then((response) => response.json())
+    .then((json) => {
+      const recievedData = json;
+      console.log(recievedData);
+      for (const item of recievedData) {
+        const tr = tableDataset.insertRow();
+
+        const imageCell = tr.insertCell(0);
+        var image_ = document.createElement("img");
+        image_.src = item.thumbnailUrl;
+        image_.width = 30;
+        image_.height = 30;
+        image_.style.margin = "10px";
+        image_.alt = "Alternate text.";
+        imageCell.className = "image-id-cell";
+        imageCell.appendChild(image_);
+
+        const idCell = tr.insertCell(1);
+        idCell.className = "image-id-cell";
+        idCell.textContent = item.id;
+
+        const titleCell = tr.insertCell(2);
+        titleCell.textContent = item.title;
+        titleCell.style.width = "40%";
+
+        const urlCell = tr.insertCell(3);
+        urlCell.className = "url-cell";
+        urlCell.style.width = "40%";
+        urlCell.textContent = item.url;
+        urlCell.onclick = function () {
+          window.open(item.url);
+        };
+      }
+    });
+};
+
+const getExternalData = async () => {
+  return await fetch("https://jsonplaceholder.typicode.com/photos?albumId=1");
 };
