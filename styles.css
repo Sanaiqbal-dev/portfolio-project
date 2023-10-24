@@ -247,7 +247,7 @@ a {
   background: hsl(40, 13%, 32%);
 }
 
-#success-msg, #error-msg {
+#response-msg {
   display: none;
   width: max-content;
   margin-left: auto;
