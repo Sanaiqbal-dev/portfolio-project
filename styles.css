@@ -238,7 +238,7 @@ a {
 }
 
 #submit:active {
-  background: #918d86;
+  background: #aaa6a0;
 }
 
 .signup-hr {
@@ -247,7 +247,7 @@ a {
   background: hsl(40, 13%, 32%);
 }
 
-#success-msg {
+#response-msg {
   display: none;
   width: max-content;
   margin-left: auto;
