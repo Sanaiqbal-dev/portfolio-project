@@ -404,8 +404,8 @@ textarea {
 
 .external-data-div {
   width: 80%;
-  margin: 30px auto;
-  display: flex;
+  margin: 100px auto;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -417,23 +417,41 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
+
 .info-table tr {
   height: 50px;
   width: 100%;
   gap: 10px;
 }
-.image-cell, .id-cell {
-  background-color: #83817e;
+
+.image-cell,
+.id-cell {
+  background-color: #DD8727;
   color: white;
   width: 10%;
 }
 
+.image-cell-data,
+.id-cell-data {
+  width: 10.1%;
+  background-color: #ddcab5;
+  text-align: center;
+}
+
+.title-cell-data,
+.url-cell-data {
+  width: 40.5%;
+  background-color: #ddcab5;
+  padding-left: 10px;
+}
+
 .title-cell,
 .url-label-cell {
-  background-color: #83817e;
-  color: white;
+  background-color: #DD8727;
+    color: white;
   width: 40%;
 }
+
 .table-container {
   width: 100%;
   height: 400px;
@@ -448,9 +466,4 @@ textarea {
   font: bold small-caps 30px "Figtree";
   padding: 10px;
   margin: 50px 0px 20px 0px;
-}
-
-.url-cell:hover {
-  color: blue;
-  cursor: pointer;
 }

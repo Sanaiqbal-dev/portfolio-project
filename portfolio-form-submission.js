@@ -600,6 +600,8 @@ filterWorkExpList = (event) => {
 const fetchExternalData = () => {
   const tableDataset = document.querySelector("#info-table");
 
+  const tableContainer = document.querySelector(".external-data-div");
+
   getExternalData()
     .then((response) => response.json())
     .then((json) => {
@@ -615,25 +617,23 @@ const fetchExternalData = () => {
         image_.height = 30;
         image_.style.margin = "10px";
         image_.alt = "Alternate text.";
-        imageCell.className = "image-id-cell";
+        imageCell.className = "image-cell-data";
         imageCell.appendChild(image_);
 
         const idCell = tr.insertCell(1);
-        idCell.className = "image-id-cell";
+        idCell.className = "id-cell-data";
         idCell.textContent = item.id;
 
         const titleCell = tr.insertCell(2);
         titleCell.textContent = item.title;
-        titleCell.style.width = "40%";
+        titleCell.className = "title-cell-data";
 
         const urlCell = tr.insertCell(3);
-        urlCell.className = "url-cell";
-        urlCell.style.width = "40%";
+        urlCell.className = "url-cell-data";
         urlCell.textContent = item.url;
-        urlCell.onclick = function () {
-          window.open(item.url);
-        };
+      
       }
+      tableContainer.style.display = "flex";
     });
 };
 
