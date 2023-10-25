@@ -421,12 +421,11 @@ textarea {
 .info-table tr {
   height: 50px;
   width: 100%;
-  gap: 10px;
 }
 
 .image-cell,
 .id-cell {
-  background-color: #DD8727;
+  background-color: #dd8727;
   color: white;
   width: 10%;
 }
@@ -447,8 +446,8 @@ textarea {
 
 .title-cell,
 .url-label-cell {
-  background-color: #DD8727;
-    color: white;
+  background-color: #dd8727;
+  color: white;
   width: 40%;
 }
 
@@ -466,4 +465,13 @@ textarea {
   font: bold small-caps 30px "Figtree";
   padding: 10px;
   margin: 50px 0px 20px 0px;
+}
+
+@media only screen and (max-width: 480px) {
+  .main-content {
+    flex-direction: column-reverse;
+  }
+  header {
+   padding: 5px 10px;
+  }
 }

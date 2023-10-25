@@ -85,8 +85,8 @@ const submitFunc = (event) => {
   }
 };
 
-const submitApiRequest = async (userName, email, password) => {
-  return await fetch("https://dummyjson.com/users/add", {
+const submitApiRequest = (userName, email, password) => {
+  return fetch("https://dummyjson.com/users/add", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -391,7 +391,7 @@ const showPersistedData = (expData) => {
     saveButton.style.display = "none";
     saveButton.type = "submit";
 
-    companyName.innerHTML = (i + 1).toString() + ". " + expData[i].companyName;
+    companyName.innerHTML = expData[i].id + ". " + expData[i].companyName;
     editableCompanyName.value = expData[i].companyName;
 
     let startDate = new Date(expData[i].startDate);
@@ -618,41 +618,43 @@ filterWorkExpList = (event) => {
 const fetchExternalData = () => {
   const tableDataset = document.querySelector("#info-table");
 
-  const tableContainer = document.querySelector(".external-data-div");
+  if (tableDataset) {
+    const tableContainer = document.querySelector(".external-data-div");
 
-  getExternalData()
-    .then((response) => response.json())
-    .then((json) => {
-      const recievedData = json;
-      for (const item of recievedData) {
-        const tr = tableDataset.insertRow();
+    getExternalData()
+      .then((response) => response.json())
+      .then((json) => {
+        const recievedData = json;
+        for (const item of recievedData) {
+          const tr = tableDataset.insertRow();
 
-        const imageCell = tr.insertCell(0);
-        var image_ = document.createElement("img");
-        image_.src = item.thumbnailUrl;
-        image_.width = 30;
-        image_.height = 30;
-        image_.style.margin = "10px";
-        image_.alt = "Alternate text.";
-        imageCell.className = "image-cell-data";
-        imageCell.appendChild(image_);
+          const imageCell = tr.insertCell(0);
+          var image_ = document.createElement("img");
+          image_.src = item.thumbnailUrl;
+          image_.width = 30;
+          image_.height = 30;
+          image_.style.margin = "10px";
+          image_.alt = "Alternate text.";
+          imageCell.className = "image-cell-data";
+          imageCell.appendChild(image_);
 
-        const idCell = tr.insertCell(1);
-        idCell.className = "id-cell-data";
-        idCell.textContent = item.id;
+          const idCell = tr.insertCell(1);
+          idCell.className = "id-cell-data";
+          idCell.textContent = item.id;
 
-        const titleCell = tr.insertCell(2);
-        titleCell.textContent = item.title;
-        titleCell.className = "title-cell-data";
+          const titleCell = tr.insertCell(2);
+          titleCell.textContent = item.title;
+          titleCell.className = "title-cell-data";
 
-        const urlCell = tr.insertCell(3);
-        urlCell.className = "url-cell-data";
-        urlCell.textContent = item.url;
-      }
-      tableContainer.style.display = "flex";
-    });
+          const urlCell = tr.insertCell(3);
+          urlCell.className = "url-cell-data";
+          urlCell.textContent = item.url;
+        }
+        tableContainer.style.display = "flex";
+      });
+  }
 };
 
-const getExternalData = async () => {
-  return await fetch("https://jsonplaceholder.typicode.com/photos?albumId=1");
+const getExternalData = () => {
+  return fetch("https://jsonplaceholder.typicode.com/photos?albumId=1");
 };
