@@ -21,8 +21,8 @@ const setDateLimits = () => {
 };
 const submitFunc = (event) => {
   event.preventDefault();
-  
-  let responseMsg = document.getElementById("response-msg");  
+
+  let responseMsg = document.getElementById("response-msg");
   let userName = document.getElementById("name");
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -67,8 +67,7 @@ const submitFunc = (event) => {
 
   if (isUserNameValid && isEmailValid && isPasswordValid) {
     submitApiRequest(userName.value, email.value, password.value)
-      .then(() => {
-      })
+      .then(() => {})
       .then(() => {
         responseMsg.style.display = "block";
         responseMsg.innerHTML = "Registration successful. 🙂";
@@ -625,7 +624,6 @@ const fetchExternalData = () => {
     .then((response) => response.json())
     .then((json) => {
       const recievedData = json;
-      console.log(recievedData);
       for (const item of recievedData) {
         const tr = tableDataset.insertRow();
 
@@ -650,7 +648,6 @@ const fetchExternalData = () => {
         const urlCell = tr.insertCell(3);
         urlCell.className = "url-cell-data";
         urlCell.textContent = item.url;
-      
       }
       tableContainer.style.display = "flex";
     });
