@@ -631,9 +631,6 @@ const fetchExternalData = () => {
           const imageCell = tr.insertCell(0);
           var image_ = document.createElement("img");
           image_.src = item.thumbnailUrl;
-          // image_.width = 30;
-          // image_.height = 30;
-          // image_.style.margin = "10px";
           image_.alt = "Alternate text.";
           imageCell.className = "image-cell-data";
           imageCell.appendChild(image_);
