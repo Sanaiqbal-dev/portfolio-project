@@ -1,4 +1,4 @@
-const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 
 let expItemIndex = 1;
 let workExpList = [];
@@ -6,7 +6,6 @@ let workExpList = [];
 window.addEventListener("load", (event) => {
   setDateLimits();
   fetchUpdatedData();
-  fetchExternalData();
 });
 
 const getElement = (idOrClassName) => {
@@ -21,83 +20,6 @@ const setDateLimits = () => {
     getElement("#end-date").max = today;
     getElement("#start-date").max = today;
   }
-};
-const submitFunc = (event) => {
-  event.preventDefault();
-
-  let responseMsg = getElement("#response-msg");
-  let userName = getElement("#name");
-  let email = getElement("#email");
-  let password = getElement("#password");
-
-  let invalidNameAlert = getElement("#alert-name");
-  let invalidEmailAlert = getElement("#alert-email");
-  let invalidPasswordAlert = getElement("#alert-password");
-
-  let isUserNameValid,
-    isEmailValid,
-    isPasswordValid = false;
-
-  if (userName.value.length == 0) {
-    userName.style.borderColor = "red";
-    invalidNameAlert.style.display = "block";
-    isUserNameValid = false;
-  } else {
-    userName.style.borderColor = "grey";
-    invalidNameAlert.style.display = "none";
-    isUserNameValid = true;
-  }
-
-  if (regex.test(email.value) == false) {
-    email.style.borderColor = "red";
-    invalidEmailAlert.style.display = "block";
-    isEmailValid = false;
-  } else {
-    email.style.borderColor = "grey";
-    invalidEmailAlert.style.display = "none";
-    isEmailValid = true;
-  }
-
-  if (password.value.length <= 7) {
-    password.style.borderColor = "red";
-    invalidPasswordAlert.style.display = "block";
-    isPasswordValid = false;
-  } else {
-    password.style.borderColor = "grey";
-    invalidPasswordAlert.style.display = "none";
-    isPasswordValid = true;
-  }
-
-  if (isUserNameValid && isEmailValid && isPasswordValid) {
-    submitApiRequest(userName.value, email.value, password.value)
-      .then(() => {})
-      .then(() => {
-        responseMsg.style.display = "block";
-        responseMsg.innerHTML = "Registration successful. 🙂";
-        responseMsg.scrollIntoView({ behavior: "smooth" });
-
-        userName.value = "";
-        email.value = "";
-        password.value = "";
-      })
-      .catch(() => {
-        responseMsg.style.display = "block";
-        responseMsg.innerHTML = "Failed to register. &#128542;";
-        responseMsg.scrollIntoView({ behavior: "smooth" });
-      });
-  }
-};
-
-const submitApiRequest = (userName, email, password) => {
-  return fetch("https://dummyjson.com/users/add", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: userName,
-      email: email,
-      password: password,
-    }),
-  });
 };
 
 const closeForm = (event) => {
@@ -248,13 +170,13 @@ const showPersistedData = (expData) => {
     const editButton = document.createElement("button");
     editButton.className = "edit-btn";
     const imgEdit = document.createElement("img");
-    imgEdit.src = "res/ic_edit.png";
+    imgEdit.src = "../res/ic_edit.png";
     editButton.appendChild(imgEdit);
 
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-btn";
     const imgDelete = document.createElement("img");
-    imgDelete.src = "res/ic_delete.png";
+    imgDelete.src = "../res/ic_delete.png";
     deleteButton.appendChild(imgDelete);
 
     let headerEvents = document.createElement("div");
@@ -618,45 +540,3 @@ filterWorkExpList = (event) => {
   }
 };
 
-const fetchExternalData = () => {
-  const tableDataset = getElement("#info-table");
-  const tableContainer = getElement(".external-data-div");
-
-
-  if (tableDataset) {
-    const tableContainer = document.querySelector(".external-data-div");
-
-    getExternalData()
-      .then((response) => response.json())
-      .then((json) => {
-        const recievedData = json;
-        for (const item of recievedData) {
-          const tr = tableDataset.insertRow();
-
-          const imageCell = tr.insertCell(0);
-          var image_ = document.createElement("img");
-          image_.src = item.thumbnailUrl;
-          image_.alt = "Alternate text.";
-          imageCell.className = "image-cell-data";
-          imageCell.appendChild(image_);
-
-          const idCell = tr.insertCell(1);
-          idCell.className = "id-cell-data";
-          idCell.textContent = item.id;
-
-          const titleCell = tr.insertCell(2);
-          titleCell.textContent = item.title;
-          titleCell.className = "title-cell-data";
-
-          const urlCell = tr.insertCell(3);
-          urlCell.className = "url-cell-data";
-          urlCell.textContent = item.url;
-        }
-        tableContainer.style.display = "flex";
-      });
-  }
-};
-
-const getExternalData = () => {
-  return fetch("https://jsonplaceholder.typicode.com/photos?albumId=1");
-};
