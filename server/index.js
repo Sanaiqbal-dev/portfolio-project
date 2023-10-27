@@ -1,8 +1,10 @@
 const dotEnv = require('dotenv');
 const express = require('express');
 const mongoose = require('mongoose');
+const routes = require('./routes/route');
 
-dotEnv.config();
+dotEnv.config({ path: "server" + "/.env" });
+
 const mongoString = process.env.DATABASE_URL;
 
 console.log("DATABASE_URL is  : ", mongoString);
@@ -20,6 +22,8 @@ database.once("connected", () => {
 const app = express();
 
 app.use(express.json());
+app.use('/api/portfolio/experience', routes);
+
 app.listen(3000, () => {
   console.log("Server started at 3000");
 });
