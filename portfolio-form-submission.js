@@ -6,29 +6,33 @@ let workExpList = [];
 window.addEventListener("load", (event) => {
   setDateLimits();
   fetchUpdatedData();
+  fetchExternalData();
 });
 
+const getElement = (idOrClassName) => {
+  return document.querySelector(idOrClassName);
+}
 const setDateLimits = () => {
   const [today] = new Date().toISOString().split("T");
   if (
-    document.getElementById("end-date") &&
-    document.getElementById("start-date")
+    getElement("#end-date") &&
+    getElement("#start-date")
   ) {
-    document.getElementById("end-date").max = today;
-    document.getElementById("start-date").max = today;
+    getElement("#end-date").max = today;
+    getElement("#start-date").max = today;
   }
 };
 const submitFunc = (event) => {
   event.preventDefault();
-  
-  let responseMsg = document.getElementById("response-msg");  
-  let userName = document.getElementById("name");
-  let email = document.getElementById("email");
-  let password = document.getElementById("password");
 
-  let invalidNameAlert = document.getElementById("alert-name");
-  let invalidEmailAlert = document.getElementById("alert-email");
-  let invalidPasswordAlert = document.getElementById("alert-password");
+  let responseMsg = getElement("#response-msg");
+  let userName = getElement("#name");
+  let email = getElement("#email");
+  let password = getElement("#password");
+
+  let invalidNameAlert = getElement("#alert-name");
+  let invalidEmailAlert = getElement("#alert-email");
+  let invalidPasswordAlert = getElement("#alert-password");
 
   let isUserNameValid,
     isEmailValid,
@@ -66,8 +70,7 @@ const submitFunc = (event) => {
 
   if (isUserNameValid && isEmailValid && isPasswordValid) {
     submitApiRequest(userName.value, email.value, password.value)
-      .then(() => {
-      })
+      .then(() => {})
       .then(() => {
         responseMsg.style.display = "block";
         responseMsg.innerHTML = "Registration successful. 🙂";
@@ -100,13 +103,13 @@ const submitApiRequest = async (userName, email, password) => {
 const closeForm = (event) => {
   event.preventDefault();
   resetForm();
-  document.querySelector(".work-exp-form").style.display = "none";
-  document.querySelector(".add-exp").style.display = "block";
+  getElement(".work-exp-form").style.display = "none";
+  getElement(".add-exp").style.display = "block";
 };
 const checkboxStateChanged = () => {
-  document.querySelector("#checkbox").checked
-    ? (document.getElementById("end-date").disabled = true)
-    : (document.getElementById("end-date").disabled = false);
+  getElement("#checkbox").checked
+    ? (getElement("#end-date").disabled = true)
+    : (getElement("#end-date").disabled = false);
 };
 
 let listCheckboxStateChanged = (e) => {
@@ -121,27 +124,27 @@ let listCheckboxStateChanged = (e) => {
   }
 };
 const setMinDate = () => {
-  document.getElementById("end-date").min =
-    document.getElementById("start-date").value;
+  getElement("#end-date").min =
+    getElement("#start-date").value;
 };
 const showExpForm = () => {
-  document.querySelector(".work-exp-form").style.display = "flex";
-  document.querySelector(".add-exp").style.display = "none";
+  getElement(".work-exp-form").style.display = "flex";
+  getElement(".add-exp").style.display = "none";
 };
 const validateForm = (event) => {
   event.preventDefault();
   if (
-    !document.getElementById("end-date").disabled &&
-    Date.parse(document.getElementById("start-date").value) >=
-      Date.parse(document.getElementById("end-date").value)
+    !getElement("#end-date").disabled &&
+    Date.parse(getElement("#start-date").value) >=
+      Date.parse(getElement("#end-date").value)
   ) {
     alert("End date should be greater than Start date");
-    document.getElementById("EndDate").value = "";
-  } else if (document.getElementById("description").value.trim().length === 0) {
-    document.querySelector(".alert-text").style.display = "block";
-    document.getElementById("description").focus();
+    getElement("#EndDate").value = "";
+  } else if (getElement("#description").value.trim().length === 0) {
+    getElement(".alert-text").style.display = "block";
+    getElement("#description").focus();
   } else {
-    document.querySelector(".alert-text").style.display = "none";
+    getElement(".alert-text").style.display = "none";
     addWorkExpToList(event);
   }
 };
@@ -149,17 +152,17 @@ const validateForm = (event) => {
 const addWorkExpToList = (event) => {
   event.preventDefault();
 
-  let companyName = document.getElementById("company-name").value;
-  let startDate = document.getElementById("start-date").value;
+  let companyName = getElement("#company-name").value;
+  let startDate = getElement("#start-date").value;
 
   let endDate = "";
-  if (document.querySelector("#checkbox").checked) {
+  if (getElement("#checkbox").checked) {
     endDate = "Present";
   } else {
-    endDate = new Date(document.getElementById("end-date").value);
+    endDate = new Date(getElement("#end-date").value);
   }
 
-  let jobDescription = document.getElementById("description").value;
+  let jobDescription = getElement("#description").value;
 
   workExpList.push({
     id: expItemIndex,
@@ -183,8 +186,8 @@ const addWorkExpToList = (event) => {
 
   resetForm();
 
-  document.querySelector(".work-exp-form").style.display = "none";
-  document.querySelector(".add-exp").style.display = "block";
+  getElement(".work-exp-form").style.display = "none";
+  getElement(".add-exp").style.display = "block";
   expItemIndex += 1;
 };
 
@@ -227,13 +230,13 @@ const fetchUpdatedData = () => {
   }
 };
 const resetForm = () => {
-  document.getElementById("company-name").value = "";
-  document.getElementById("start-date").value = "";
-  document.getElementById("end-date").removeAttribute("min");
-  document.getElementById("end-date").value = "";
-  document.getElementById("end-date").disabled = false;
-  document.querySelector("#checkbox").checked = false;
-  document.getElementById("description").value = "";
+  getElement("#company-name").value = "";
+  getElement("#start-date").value = "";
+  getElement("#end-date").removeAttribute("min");
+  getElement("#end-date").value = "";
+  getElement("#end-date").disabled = false;
+  getElement("#checkbox").checked = false;
+  getElement("#description").value = "";
 };
 
 const showPersistedData = (expData) => {
@@ -437,12 +440,14 @@ const showPersistedData = (expData) => {
       deleteItem(e);
     });
 
-    if (document.querySelector(".exp-list")) {
-      workExpItem.insertBefore(headerEvents, workExpItem.firstChild);
-      document.querySelector(".exp-list").appendChild(workExpItem);
-    } else {
-      document.querySelector(".home-exp-list").appendChild(workExpItem);
-    }
+    try {
+      if (getElement(".exp-list")) {
+        workExpItem.insertBefore(headerEvents, workExpItem.firstChild);
+        getElement(".exp-list").appendChild(workExpItem);
+      } else {
+        getElement(".home-exp-list").appendChild(workExpItem);
+      }
+    } catch (error) {}
   }
 };
 
@@ -611,4 +616,46 @@ filterWorkExpList = (event) => {
       ? (expItems[i].style.display = "block")
       : (expItems[i].style.display = "none");
   }
+};
+
+const fetchExternalData = () => {
+  const tableDataset = getElement("#info-table");
+  const tableContainer = getElement(".external-data-div");
+
+
+  getExternalData()
+    .then((response) => response.json())
+    .then((json) => {
+      const recievedData = json;
+      for (const item of recievedData) {
+        const tr = tableDataset.insertRow();
+
+        const imageCell = tr.insertCell(0);
+        var image_ = document.createElement("img");
+        image_.src = item.thumbnailUrl;
+        image_.width = 30;
+        image_.height = 30;
+        image_.style.margin = "10px";
+        image_.alt = "Alternate text.";
+        imageCell.className = "image-cell-data";
+        imageCell.appendChild(image_);
+
+        const idCell = tr.insertCell(1);
+        idCell.className = "id-cell-data";
+        idCell.textContent = item.id;
+
+        const titleCell = tr.insertCell(2);
+        titleCell.textContent = item.title;
+        titleCell.className = "title-cell-data";
+
+        const urlCell = tr.insertCell(3);
+        urlCell.className = "url-cell-data";
+        urlCell.textContent = item.url;
+      }
+      tableContainer.style.display = "flex";
+    });
+};
+
+const getExternalData = async () => {
+  return await fetch("https://jsonplaceholder.typicode.com/photos?albumId=1");
 };
