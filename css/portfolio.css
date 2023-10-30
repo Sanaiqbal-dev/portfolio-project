@@ -1,0 +1,225 @@
+.introduction {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-row {
+  margin-top: 0;
+  padding: 75px;
+}
+
+.title-about {
+  margin-top: 0;
+}
+
+hr {
+  border-top: 1px dotted #5d5648;
+  margin: 0px 50px;
+}
+
+#details {
+  padding: 0px 75px 75px 75px;
+}
+
+#details h1 {
+  margin-bottom: 50px;
+}
+
+.work-exp {
+  display: flex;
+  flex-direction: column;
+}
+
+.exp-item {
+  margin: 30px;
+}
+
+.exp-item li {
+  margin-bottom: 10px;
+}
+
+.exp-item h4 {
+  margin: 0;
+}
+
+#heading {
+  text-align: center;
+  margin-top: -15px;
+  font-weight: 300;
+}
+
+#picture {
+  height: auto;
+  background-color: #c0bdb8;
+  text-align: center;
+}
+
+footer {
+  display: flex;
+  padding: 10px 70px;
+  background-color: black;
+}
+
+footer a:hover {
+  color: orange;
+}
+
+a {
+  color: white;
+}
+
+.inline-div {
+  display: inline-block;
+}
+
+.exp-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #f4f3f1;
+}
+
+.exp-content {
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 480px) {
+  #picture {
+    background-color: transparent;
+    padding: 30px 30px;
+  }
+
+  #person {
+    width: 70%;
+    height: auto;
+  }
+
+  .top-row {
+    padding: 20px;
+  }
+
+  .inline-div {
+    font-size: smaller;
+    margin: 5px;
+  }
+
+  .title-about {
+    margin-top: 0;
+    font-size: large;
+  }
+
+  #intro-data {
+    font-size: smaller;
+  }
+
+  #details {
+    padding: 0px 20px 20px 20px;
+  }
+
+  #details h1 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: large;
+  }
+
+  .exp-item {
+    margin: 10px;
+  }
+
+  .exp-item li {
+    margin-bottom: 5px;
+  }
+
+  footer {
+    padding: 5px 10px;
+  }
+
+  footer h2 {
+    font-size: medium;
+    font-weight: 600;
+  }
+
+  .exp-item p {
+    font-size: smaller;
+  }
+}
+@media only screen and (min-width: 481px) and (max-width: 1023px) {
+  #picture {
+    width: 30%;
+    padding: 30px 0px;
+  }
+
+  #name-data {
+    font-size: larger;
+  }
+
+  #heading {
+    font-size: large;
+  }
+
+  .introduction {
+    width: 70%;
+  }
+
+  #person {
+    width: 80%;
+    height: auto;
+  }
+
+  .top-row {
+    padding: 20px;
+  }
+
+  .inline-div {
+    font-size: smaller;
+    margin: 5px;
+  }
+
+  .title-about {
+    margin-top: 0;
+    font-size: larger;
+  }
+
+  #intro-data {
+    font-size: small;
+  }
+
+  #details {
+    padding: 0px 20px 20px 20px;
+  }
+
+  #details h1 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: larger;
+  }
+
+  .exp-item {
+    margin: 10px;
+  }
+
+  .exp-item li {
+    margin-bottom: 5px;
+  }
+
+  footer {
+    padding: 5px 10px;
+  }
+
+  footer h2 {
+    font-size: large;
+    font-weight: 600;
+  }
+  .exp-item p {
+    font-size: smaller;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  #picture {
+    padding: 30px 30px;
+  }
+
+  #person {
+    width: 250px;
+    height: auto;
+  }
+}
