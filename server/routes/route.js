@@ -7,7 +7,6 @@ module.exports = router;
 
 router.post("/post", async (req, res) => {
   const data = new Model({
-    id: req.body.id,
     companyName: req.body.companyName,
     startDate: req.body.startDate,
     endDate: req.body.endDate,
@@ -21,7 +20,6 @@ router.post("/post", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 
-  res.send("Post API");
 });
 
 router.get("/getAll", async (req, res) => {
@@ -54,6 +52,16 @@ router.patch("/update/:id", async(req, res) => {
 });
 
 //Delete by ID Method
-router.delete("/delete/:id", (req, res) => {
-  res.send("Delete by ID API");
+router.delete("/delete/:id", async(req, res) => {
+
+    try{
+
+        const id = req.params.id;
+        const dataToDelete = await Model.findByIdAndDelete(id);
+        res.status(200).send(`Item with the given id has been deleted`);
+    }
+    catch(error){
+        res.status(400).json({message: error.message});
+    }
+
 });

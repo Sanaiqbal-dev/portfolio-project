@@ -5,19 +5,17 @@ let workExpList = [];
 
 window.addEventListener("load", (event) => {
   setDateLimits();
-  fetchUpdatedData();
-  fetchExternalData();
+  // fetchUpdatedData();
+  fetchDataFromDB();
+  // fetchExternalData();
 });
 
 const getElement = (idOrClassName) => {
   return document.querySelector(idOrClassName);
-}
+};
 const setDateLimits = () => {
   const [today] = new Date().toISOString().split("T");
-  if (
-    getElement("#end-date") &&
-    getElement("#start-date")
-  ) {
+  if (getElement("#end-date") && getElement("#start-date")) {
     getElement("#end-date").max = today;
     getElement("#start-date").max = today;
   }
@@ -124,8 +122,7 @@ let listCheckboxStateChanged = (e) => {
   }
 };
 const setMinDate = () => {
-  getElement("#end-date").min =
-    getElement("#start-date").value;
+  getElement("#end-date").min = getElement("#start-date").value;
 };
 const showExpForm = () => {
   getElement(".work-exp-form").style.display = "flex";
@@ -172,23 +169,69 @@ const addWorkExpToList = (event) => {
     description: jobDescription,
   });
 
-  setUpdatedData(workExpList);
+  const newItem = {
+    companyName: companyName,
+    startDate: startDate,
+    endDate: endDate,
+    description: jobDescription,
+  };
 
-  showPersistedData([
-    {
-      id: expItemIndex,
-      companyName: companyName,
-      startDate: startDate,
-      endDate: endDate,
-      description: jobDescription,
-    },
-  ]);
+  addNewWorkExpItem(newItem);
+
+  // showPersistedData([
+  //   {
+  //     id: expItemIndex,
+  //     companyName: companyName,
+  //     startDate: startDate,
+  //     endDate: endDate,
+  //     description: jobDescription,
+  //   },
+  // ]);
 
   resetForm();
 
   getElement(".work-exp-form").style.display = "none";
   getElement(".add-exp").style.display = "block";
   expItemIndex += 1;
+};
+
+const addNewWorkExpItem = async (newItem) => {
+  // const response_ = await fetch(
+  //   "http://localhost:3000/api/portfolio/experience/post",
+  //   {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(newItem),
+  //   }
+  // );
+
+  // try {
+  //   if (response_.ok) {
+  //     console.log(await response_.json());
+  //   } else {
+  //     console.log(response_.json());
+  //   }
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
+
+
+
+  await fetch("http://localhost:3000/api/portfolio/experience/post", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newItem),
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const setUpdatedData = (expList) => {
@@ -205,30 +248,30 @@ const setUpdatedData = (expList) => {
   }
 };
 
-const fetchUpdatedData = () => {
-  if (typeof localStorage !== "undefined") {
-    try {
-      if (JSON.parse(localStorage.getItem("work-exp")) != null) {
-        let newData = JSON.parse(localStorage.getItem("work-exp"));
-        const mergedSet = new Set(
-          [...workExpList, ...newData].map((item) => JSON.stringify(item))
-        );
-        const mergedArray = Array.from(mergedSet).map((item) =>
-          JSON.parse(item)
-        );
-        workExpList = mergedArray;
-        expItemIndex = parseInt(workExpList[workExpList.length - 1].id) + 1;
-      }
-      showPersistedData(workExpList);
-    } catch (error) {
-      if (error == QUOTA_EXCEEDED_ERR) {
-        alert("Local storage quota exceeded!");
-      }
-    }
-  } else {
-    alert("Local Storage is not supported in this environment.");
-  }
+const fetchDataFromDB = async () => {
+  await fetch(`http://localhost:3000/api/portfolio/experience/getAll`)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      console.log(jsonData);
+      updateLocalData(jsonData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
+
+const updateLocalData = (jsonData) => {
+  if (jsonData) {
+    let newData = jsonData;
+    const mergedSet = new Set(
+      [...workExpList, ...newData].map((item) => JSON.stringify(item))
+    );
+    const mergedArray = Array.from(mergedSet).map((item) => JSON.parse(item));
+    workExpList = mergedArray;
+  }
+  showPersistedData(workExpList);
+};
+
 const resetForm = () => {
   getElement("#company-name").value = "";
   getElement("#start-date").value = "";
@@ -394,7 +437,7 @@ const showPersistedData = (expData) => {
     saveButton.style.display = "none";
     saveButton.type = "submit";
 
-    companyName.innerHTML = expData[i].id + ". " + expData[i].companyName;
+    companyName.innerHTML = i + 1 + ". " + expData[i].companyName;
     editableCompanyName.value = expData[i].companyName;
 
     let startDate = new Date(expData[i].startDate);
@@ -621,7 +664,6 @@ filterWorkExpList = (event) => {
 const fetchExternalData = () => {
   const tableDataset = getElement("#info-table");
   const tableContainer = getElement(".external-data-div");
-
 
   if (tableDataset) {
     const tableContainer = document.querySelector(".external-data-div");

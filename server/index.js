@@ -1,6 +1,8 @@
 const dotEnv = require('dotenv');
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
+
 const routes = require('./routes/route');
 
 dotEnv.config({ path: "server" + "/.env" });
@@ -21,6 +23,7 @@ database.once("connected", () => {
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use('/api/portfolio/experience', routes);
 
 app.listen(3000, () => {
