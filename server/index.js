@@ -7,7 +7,6 @@ dotEnv.config({ path: "server" + "/.env" });
 
 const mongoString = process.env.DATABASE_URL;
 
-console.log("DATABASE_URL is  : ", mongoString);
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
