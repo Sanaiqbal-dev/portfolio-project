@@ -5,9 +5,7 @@ let workExpList = [];
 
 window.addEventListener("load", (event) => {
   setDateLimits();
-  // fetchUpdatedData();
   fetchDataFromDB();
-  // fetchExternalData();
 });
 
 const getElement = (idOrClassName) => {
@@ -161,14 +159,6 @@ const addWorkExpToList = (event) => {
 
   let jobDescription = getElement("#description").value;
 
-  workExpList.push({
-    id: expItemIndex,
-    companyName: companyName,
-    startDate: startDate,
-    endDate: endDate,
-    description: jobDescription,
-  });
-
   const newItem = {
     companyName: companyName,
     startDate: startDate,
@@ -177,57 +167,24 @@ const addWorkExpToList = (event) => {
   };
 
   addNewWorkExpItem(newItem);
-
-  // showPersistedData([
-  //   {
-  //     id: expItemIndex,
-  //     companyName: companyName,
-  //     startDate: startDate,
-  //     endDate: endDate,
-  //     description: jobDescription,
-  //   },
-  // ]);
-
-  resetForm();
-
-  getElement(".work-exp-form").style.display = "none";
-  getElement(".add-exp").style.display = "block";
-  expItemIndex += 1;
 };
 
 const addNewWorkExpItem = async (newItem) => {
-  // const response_ = await fetch(
-  //   "http://localhost:3000/api/portfolio/experience/post",
-  //   {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(newItem),
-  //   }
-  // );
-
-  // try {
-  //   if (response_.ok) {
-  //     console.log(await response_.json());
-  //   } else {
-  //     console.log(response_.json());
-  //   }
-  // } catch (error) {
-  //   console.log(error);
-  // }
-
-
-
-
   await fetch("http://localhost:3000/api/portfolio/experience/post", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(newItem),
   })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log(data);
+    .then((response) => response.json())
+    .then((jsonData) => {
+      resetForm();
+      getElement(".work-exp-form").style.display = "none";
+      getElement(".add-exp").style.display = "block";
+      workExpList.push(jsonData);
+      console.log("workExpList is : ", workExpList);
+      showPersistedData([jsonData]);
     })
     .catch((error) => {
       console.log(error);
@@ -268,6 +225,7 @@ const updateLocalData = (jsonData) => {
     );
     const mergedArray = Array.from(mergedSet).map((item) => JSON.parse(item));
     workExpList = mergedArray;
+    expItemIndex = workExpList.length + 1;
   }
   showPersistedData(workExpList);
 };
@@ -283,10 +241,12 @@ const resetForm = () => {
 };
 
 const showPersistedData = (expData) => {
+  expItemIndex = document.getElementById("exp-list").childElementCount + 1;
+  console.log("Child elements are : ", expItemIndex);
   for (let i = 0; i < expData.length; i++) {
     let workExpItem = document.createElement("div");
     workExpItem.className = "exp-item";
-    workExpItem.id = expData[i].id;
+    workExpItem.id = expData[i]._id;
 
     const editButton = document.createElement("button");
     editButton.className = "edit-btn";
@@ -437,7 +397,7 @@ const showPersistedData = (expData) => {
     saveButton.style.display = "none";
     saveButton.type = "submit";
 
-    companyName.innerHTML = i + 1 + ". " + expData[i].companyName;
+    companyName.innerHTML = expItemIndex + ". " + expData[i].companyName;
     editableCompanyName.value = expData[i].companyName;
 
     let startDate = new Date(expData[i].startDate);
@@ -491,6 +451,8 @@ const showPersistedData = (expData) => {
         getElement(".home-exp-list").appendChild(workExpItem);
       }
     } catch (error) {}
+
+    expItemIndex += 1;
   }
 };
 
@@ -541,13 +503,15 @@ const editItem = (e) => {
     }
 
     if (isDataValid(expItem, companyName, startDate, endDate, jobDescription)) {
-      saveUpdatedData(
-        expItem.id,
-        companyName,
-        startDate,
-        endDate,
-        jobDescription
-      );
+      // saveUpdatedData(
+      //   expItem.id,
+      //   companyName,
+      //   startDate,
+      //   endDate,
+      //   jobDescription
+      // );
+
+      //Add patch request here...
 
       resetEditView(expItem, companyName, startDate, endDate, jobDescription);
     }
@@ -601,7 +565,7 @@ let saveUpdatedData = (id, companyName, startDate, endDate, jobDescription) => {
 
   if (index != -1) {
     workExpList[index] = updatedItem;
-    setUpdatedData(workExpList);
+    // setUpdatedData(workExpList);
   }
 };
 
@@ -638,13 +602,32 @@ let resetEditView = (
   saveButton.style.display = "none";
 };
 
-const deleteItem = (e) => {
+const deleteItem = async (e) => {
   const selectedItem = e.target.closest(".exp-item");
   selectedItem.remove();
 
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/portfolio/experience/delete/${selectedItem.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Request failed.");
+    } else {
+      const res = await response.json();
+      console.log("Delete operation:", res);
+    }
+  } catch (error) {
+          console.log("Delete operation error:", error);
+
+  }
+
   const newExpList = workExpList.filter((item) => item.id != selectedItem.id);
   workExpList = newExpList;
-  setUpdatedData(workExpList);
+  // setUpdatedData(workExpList);
 };
 
 filterWorkExpList = (event) => {
@@ -663,7 +646,6 @@ filterWorkExpList = (event) => {
 
 const fetchExternalData = () => {
   const tableDataset = getElement("#info-table");
-  const tableContainer = getElement(".external-data-div");
 
   if (tableDataset) {
     const tableContainer = document.querySelector(".external-data-div");

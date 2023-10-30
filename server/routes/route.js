@@ -12,7 +12,6 @@ router.post("/post", async (req, res) => {
     endDate: req.body.endDate,
     description: req.body.description,
   });
-
   try {
     const dataToSave = await data.save();
     res.status(200).json(dataToSave);
