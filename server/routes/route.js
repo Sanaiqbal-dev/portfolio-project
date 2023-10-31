@@ -18,7 +18,6 @@ router.post("/post", async (req, res) => {
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-
 });
 
 router.get("/getAll", async (req, res) => {
@@ -30,37 +29,25 @@ router.get("/getAll", async (req, res) => {
   }
 });
 
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedDate = req.body;
+    const options = { new: true };
 
-//Update by ID Method
-router.patch("/update/:id", async(req, res) => {
-
-    try{
-        const id  = req.params.id;
-        const updatedDate = req.body;
-        const options  = {new : true};
-
-        const result = await Model.findByIdAndUpdate(id, updatedDate, options);
-        res.send(result);
-    }
-    catch(error){
-
-        res.status(400).json({message:  error.message});
-    }
-
-
+    const result = await Model.findByIdAndUpdate(id, updatedDate, options);
+    res.send(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });
 
-//Delete by ID Method
-router.delete("/delete/:id", async(req, res) => {
-
-    try{
-
-        const id = req.params.id;
-        const dataToDelete = await Model.findByIdAndDelete(id);
-        res.status(200).send(`Item with the given id has been deleted`);
-    }
-    catch(error){
-        res.status(400).json({message: error.message});
-    }
-
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const dataToDelete = await Model.findByIdAndDelete(id);
+    res.status(200).json("Item deleted");
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 });

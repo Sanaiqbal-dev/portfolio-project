@@ -12,9 +12,11 @@
     <link rel="stylesheet" href="../css/portfolio.css" />
     <link rel="stylesheet" href="../css/edit-portfolio.css" />
     <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/preloader.css" />
     <title>Edit Portfolio</title>
     <script src="../js/portfolio-form-submission.js"></script>
   </head>
+
   <body>
     <header>
       <h2 class="header-options"><a href="/html/portfolio.html">Home</a></h2>
@@ -43,14 +45,23 @@
               <p class="inline-div">+92 333 1234567</p>
               <br />
               <h3 class="inline-div">Email:</h3>
-              <p class="inline-div">sana.iqbal@codeninjaconsulting.com</p>
+              <p class="inline-div">sana.iqbal@gmail.com</p>
             </div>
           </div>
           <div id="details">
             <div>
               <h1>Work Experience</h1>
               <div class="work-exp" id="workexp">
-                <input class="search-text" id="search-work-exp" placeholder="Search Here..." oninput="filterWorkExpList(event)"/>
+                <input
+                  class="search-text"
+                  id="search-work-exp"
+                  placeholder="Search Here..."
+                  oninput="filterWorkExpList(event)"
+                />
+                <h3 class="no-data">No work experience related data found in database.</h3>
+                <div id="preloader">
+                  <div id="loader"></div>
+                </div>
                 <div class="exp-list" id="exp-list"></div>
                 <form
                   class="work-exp-form"
@@ -76,12 +87,21 @@
                     </div>
                     <div class="date-section-values">
                       <input type="date" id="start-date" required />
-                      <input type="date" id="end-date" required onclick="setMinDate()"/>
+                      <input
+                        type="date"
+                        id="end-date"
+                        required
+                        onclick="setMinDate()"
+                      />
                       <div class="checkbox-section">
-                        <input type="checkbox" class="checkbox" id="checkbox" onchange="checkboxStateChanged()"/><label class="label-employer">Current Employer</label>
+                        <input
+                          type="checkbox"
+                          class="checkbox"
+                          id="checkbox"
+                          onchange="checkboxStateChanged()"
+                        /><label class="label-employer">Current Employer</label>
                       </div>
                     </div>
-                    
                   </div>
                   <textarea
                     id="description"
@@ -89,9 +109,7 @@
                     placeholder="Add job description:"
                   ></textarea>
                   <p class="alert-text">Enter valid job description.</p>
-                  <button class="save-btn" id="save-info" type="submit">
-                    SAVE
-                  </button>
+                  <button class="save-btn" id="save-info" type="submit"><p id="save-text">SAVE</p><div class="loader"></div></button>
                 </form>
                 <button class="add-exp" onclick="showExpForm()">
                   Add Experience
