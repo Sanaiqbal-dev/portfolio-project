@@ -1,27 +1,23 @@
-
+const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 let expItemIndex = 1;
 let workExpList = [];
 
 window.addEventListener("load", (event) => {
   setDateLimits();
-  fetchUpdatedData();
+  fetchDataFromDB();
 });
 
 const getElement = (idOrClassName) => {
   return document.querySelector(idOrClassName);
-}
+};
 const setDateLimits = () => {
   const [today] = new Date().toISOString().split("T");
-  if (
-    getElement("#end-date") &&
-    getElement("#start-date")
-  ) {
+  if (getElement("#end-date") && getElement("#start-date")) {
     getElement("#end-date").max = today;
     getElement("#start-date").max = today;
   }
 };
-
 const closeForm = (event) => {
   event.preventDefault();
   resetForm();
@@ -33,7 +29,6 @@ const checkboxStateChanged = () => {
     ? (getElement("#end-date").disabled = true)
     : (getElement("#end-date").disabled = false);
 };
-
 let listCheckboxStateChanged = (e) => {
   let dateSection = e.target.closest(".date-section-values-editable");
 
@@ -46,8 +41,7 @@ let listCheckboxStateChanged = (e) => {
   }
 };
 const setMinDate = () => {
-  getElement("#end-date").min =
-    getElement("#start-date").value;
+  getElement("#end-date").min = getElement("#start-date").value;
 };
 const showExpForm = () => {
   getElement(".work-exp-form").style.display = "flex";
@@ -70,87 +64,6 @@ const validateForm = (event) => {
     addWorkExpToList(event);
   }
 };
-
-const addWorkExpToList = (event) => {
-  event.preventDefault();
-
-  let companyName = getElement("#company-name").value;
-  let startDate = getElement("#start-date").value;
-
-  let endDate = "";
-  if (getElement("#checkbox").checked) {
-    endDate = "Present";
-  } else {
-    endDate = new Date(getElement("#end-date").value);
-  }
-
-  let jobDescription = getElement("#description").value;
-
-  workExpList.push({
-    id: expItemIndex,
-    companyName: companyName,
-    startDate: startDate,
-    endDate: endDate,
-    description: jobDescription,
-  });
-
-  setUpdatedData(workExpList);
-
-  showPersistedData([
-    {
-      id: expItemIndex,
-      companyName: companyName,
-      startDate: startDate,
-      endDate: endDate,
-      description: jobDescription,
-    },
-  ]);
-
-  resetForm();
-
-  getElement(".work-exp-form").style.display = "none";
-  getElement(".add-exp").style.display = "block";
-  expItemIndex += 1;
-};
-
-const setUpdatedData = (expList) => {
-  if (typeof localStorage !== "undefined") {
-    try {
-      localStorage.setItem("work-exp", JSON.stringify(expList));
-    } catch (error) {
-      if (error == QUOTA_EXCEEDED_ERR) {
-        alert("Local storage quota exceeded!");
-      }
-    }
-  } else {
-    alert("Local Storage is not supported in this environment.");
-  }
-};
-
-const fetchUpdatedData = () => {
-  if (typeof localStorage !== "undefined") {
-    try {
-      if (JSON.parse(localStorage.getItem("work-exp")) != null) {
-        let newData = JSON.parse(localStorage.getItem("work-exp"));
-        const mergedSet = new Set(
-          [...workExpList, ...newData].map((item) => JSON.stringify(item))
-        );
-        const mergedArray = Array.from(mergedSet).map((item) =>
-          JSON.parse(item)
-        );
-        workExpList = mergedArray;
-        expItemIndex = parseInt(workExpList[workExpList.length - 1].id) + 1;
-      }
-      showPersistedData(workExpList);
-    } catch (error) {
-      if (error == QUOTA_EXCEEDED_ERR) {
-        alert("Local storage quota exceeded!");
-      }
-    }
-  } else {
-    alert("Local Storage is not supported in this environment.");
-  }
-};
 const resetForm = () => {
   getElement("#company-name").value = "";
   getElement("#start-date").value = "";
@@ -160,12 +73,48 @@ const resetForm = () => {
   getElement("#checkbox").checked = false;
   getElement("#description").value = "";
 };
+let resetEditView = (
+  expItem,
+  companyNameText,
+  startDate,
+  endDate,
+  jobDescriptionText
+) => {
+  let collection = Array.from(document.querySelectorAll(".exp-item"));
 
+  let headerEvents = expItem.querySelector(".header-events");
+  headerEvents.style.display = "flex";
+  let companyName = expItem.querySelector(".company-name");
+  companyName.style.display = "block";
+  companyName.innerHTML =
+    collection.indexOf(expItem) + 1 + ". " + companyNameText;
+  let companyNameEditable = expItem.querySelector(".company-name-editable");
+  companyNameEditable.style.display = "none";
+  let jobDuration = expItem.querySelector(".job-duration");
+  jobDuration.style.display = "block";
+  jobDuration.innerHTML = startDate + "-" + endDate;
+  let dateSectionEditable = expItem.querySelector(".date-section-editable");
+  dateSectionEditable.style.display = "none";
+  let jobDescription = expItem.querySelector(".job-description");
+  jobDescription.style.display = "block";
+  jobDescription.innerHTML = jobDescriptionText;
+  let jobDescriptionEditable = expItem.querySelector(
+    ".job-description-editable"
+  );
+  jobDescriptionEditable.style.display = "none";
+  let saveButton = expItem.querySelector(".save-button-editable");
+  saveButton.style.display = "none";
+};
 const showPersistedData = (expData) => {
+  if (getElement(".exp-list")) {
+    expItemIndex = getElement("#exp-list").childElementCount + 1;
+  } else if (getElement(".home-exp-list")) {
+    expItemIndex = getElement(".home-exp-list").childElementCount + 1;
+  }
   for (let i = 0; i < expData.length; i++) {
     let workExpItem = document.createElement("div");
     workExpItem.className = "exp-item";
-    workExpItem.id = expData[i].id;
+    workExpItem.id = expData[i]._id;
 
     const editButton = document.createElement("button");
     editButton.className = "edit-btn";
@@ -176,8 +125,13 @@ const showPersistedData = (expData) => {
     const deleteButton = document.createElement("button");
     deleteButton.className = "delete-btn";
     const imgDelete = document.createElement("img");
+    imgDelete.className = "img-delete";
     imgDelete.src = "../res/ic_delete.png";
+
+    const deleteLoader = document.createElement("div");
+    deleteLoader.className = "loader";
     deleteButton.appendChild(imgDelete);
+    deleteButton.appendChild(deleteLoader);
 
     let headerEvents = document.createElement("div");
     headerEvents.className = "header-events";
@@ -304,11 +258,16 @@ const showPersistedData = (expData) => {
 
     let saveButton = document.createElement("button");
     saveButton.className = "save-button-editable";
-    saveButton.textContent = "SAVE";
-    saveButton.style.color = "white";
-    saveButton.style.backgroundColor = "green";
-    saveButton.style.margin = "20px auto";
-    saveButton.style.padding = "5px 40px";
+
+    const saveText = document.createElement("p");
+    saveText.innerHTML = "SAVE";
+    saveText.style.margin = "0px auto 0px auto";
+    saveText.style.backgroundColor = "transparent";
+    const saveLoader = document.createElement("div");
+    saveLoader.className = "loader";
+    saveLoader.style.margin = "0px auto";
+    saveButton.appendChild(saveText);
+    saveButton.appendChild(saveLoader);
 
     companyDiv.style.display = "none";
     dateSection.style.display = "none";
@@ -316,7 +275,7 @@ const showPersistedData = (expData) => {
     saveButton.style.display = "none";
     saveButton.type = "submit";
 
-    companyName.innerHTML = expData[i].id + ". " + expData[i].companyName;
+    companyName.innerHTML = expItemIndex + ". " + expData[i].companyName;
     editableCompanyName.value = expData[i].companyName;
 
     let startDate = new Date(expData[i].startDate);
@@ -370,9 +329,16 @@ const showPersistedData = (expData) => {
         getElement(".home-exp-list").appendChild(workExpItem);
       }
     } catch (error) {}
+
+    expItemIndex += 1;
+  }
+  
+  if (workExpList.length > 0) {
+    getElement("#search-work-exp").style.display = "block";
+    getElement("#exp-list").style.display = "block";
+    getElement(".no-data").style.display = "none";
   }
 };
-
 const editItem = (e) => {
   let expItem = e.target.closest(".exp-item");
 
@@ -420,19 +386,20 @@ const editItem = (e) => {
     }
 
     if (isDataValid(expItem, companyName, startDate, endDate, jobDescription)) {
-      saveUpdatedData(
+      saveButton.querySelector(".loader").style.display = "block";
+      saveButton.querySelector("p").style.display = "none";
+
+      updateDataInDB(
         expItem.id,
         companyName,
         startDate,
         endDate,
-        jobDescription
+        jobDescription,
+        expItem
       );
-
-      resetEditView(expItem, companyName, startDate, endDate, jobDescription);
     }
   });
 };
-
 const isDataValid = (
   expItem,
   companyName,
@@ -467,66 +434,165 @@ const isDataValid = (
 
   return true;
 };
-let saveUpdatedData = (id, companyName, startDate, endDate, jobDescription) => {
-  let updatedItem = {
-    id: id,
+const addWorkExpToList = (event) => {
+  event.preventDefault();
+
+  const saveBtn = getElement("#save-info");
+  saveBtn.querySelector("#save-text").style.display = "none";
+  saveBtn.querySelector(".loader").style.display = "block";
+  let companyName = getElement("#company-name").value;
+  let startDate = getElement("#start-date").value;
+
+  let endDate = "";
+  if (getElement("#checkbox").checked) {
+    endDate = "Present";
+  } else {
+    endDate = new Date(getElement("#end-date").value);
+  }
+
+  let jobDescription = getElement("#description").value;
+
+  const newItem = {
     companyName: companyName,
     startDate: startDate,
     endDate: endDate,
     description: jobDescription,
   };
 
-  let index = workExpList.findIndex((item) => item.id == id.toString());
+  addWorkExpItemInDB(newItem);
+};
+const addWorkExpItemInDB = async (newItem) => {
+  await fetch("http://localhost:3000/api/portfolio/experience/post", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newItem),
+  })
+    .then((response) => response.json())
+    .then((jsonData) => {
+      resetForm();
+      getElement(".work-exp-form").style.display = "none";
+      getElement(".add-exp").style.display = "block";
+      workExpList.push(jsonData);
+      showPersistedData([jsonData]);
+      window.alert(
+        "New work experience item saved in the database successfully."
+      );
+    })
+    .catch((error) => {
+      window.alert("Failed to add new work experience item in the database.");
+    });
 
-  if (index != -1) {
-    workExpList[index] = updatedItem;
-    setUpdatedData(workExpList);
+  const saveBtn = getElement("#save-info");
+  saveBtn.querySelector("#save-text").style.display = "block";
+  saveBtn.querySelector(".loader").style.display = "none";
+};
+const fetchDataFromDB = async () => {
+  await fetch(`http://localhost:3000/api/portfolio/experience/getAll`)
+    .then((response) => response.json())
+    .then((jsonData) => {
+      updateLocalData(jsonData);
+    })
+    .catch((error) => {
+      console.log(error);
+      getElement("#preloader").style.display = "none";
+    });
+};
+const updateLocalData = (jsonData) => {
+  if (jsonData) {
+    workExpList = jsonData;
+
+    expItemIndex = workExpList.length + 1;
+
+    if (workExpList.length > 0) {
+      showPersistedData(workExpList);
+      getElement("#search-work-exp").style.display = "block";
+      getElement("#exp-list").style.display = "block";
+    } else {
+      getElement(".no-data").style.display = "block";
+    }
+    getElement("#preloader").style.display = "none";
+  }
+};
+const updateDataInDB = async (
+  id,
+  companyName,
+  startDate,
+  endDate,
+  jobDescription,
+  expItem
+) => {
+  let updatedItem = {
+    companyName: companyName,
+    startDate: startDate,
+    endDate: endDate,
+    description: jobDescription,
+  };
+
+  await fetch(`http://localhost:3000/api/portfolio/experience/update/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(updatedItem),
+  })
+    .then((response) => response.json())
+    .then((jsonData) => {
+      resetEditView(expItem, companyName, startDate, endDate, jobDescription);
+      window.alert(
+        "Work Experience data has been updated successfully in Database."
+      );
+    })
+    .catch((error) => {
+      window.alert("Failed to update Work Experience data in Database.");
+    });
+
+  expItem
+    .querySelector(".save-button-editable")
+    .querySelector(".loader").style.display = "none";
+  expItem
+    .querySelector(".save-button-editable")
+    .querySelector("p").style.display = "block";
+};
+const deleteItem = async (e) => {
+  const selectedItem = e.target.closest(".exp-item");
+  selectedItem.firstChild.lastChild.firstChild.style.display = "none";
+  selectedItem.firstChild.lastChild.lastChild.style.display = "block";
+
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/portfolio/experience/delete/${selectedItem.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Request failed.");
+    } else {
+      const res = await response.json();
+      selectedItem.remove();
+      window.alert("Selected item is deleted from database successfully.");
+    }
+  } catch (error) {
+    window.alert("Failed to delete selected item from database.");
+
+    selectedItem.firstChild.lastChild.firstChild.style.display = "block";
+    selectedItem.firstChild.lastChild.lastChild.style.display = "none";
+  }
+
+  const newExpList = workExpList.filter((item) => item._id != selectedItem.id);
+  workExpList = newExpList;
+
+  if (workExpList.length < 1) {
+    getElement("#search-work-exp").style.display = "none";
+    getElement("#exp-list").style.display = "none";
+    getElement(".no-data").style.display = "block";
   }
 };
 
-let resetEditView = (
-  expItem,
-  companyNameText,
-  startDate,
-  endDate,
-  jobDescriptionText
-) => {
-  let collection = Array.from(document.querySelectorAll(".exp-item"));
-
-  let headerEvents = expItem.querySelector(".header-events");
-  headerEvents.style.display = "flex";
-  let companyName = expItem.querySelector(".company-name");
-  companyName.style.display = "block";
-  companyName.innerHTML =
-    collection.indexOf(expItem) + 1 + ". " + companyNameText;
-  let companyNameEditable = expItem.querySelector(".company-name-editable");
-  companyNameEditable.style.display = "none";
-  let jobDuration = expItem.querySelector(".job-duration");
-  jobDuration.style.display = "block";
-  jobDuration.innerHTML = startDate + "-" + endDate;
-  let dateSectionEditable = expItem.querySelector(".date-section-editable");
-  dateSectionEditable.style.display = "none";
-  let jobDescription = expItem.querySelector(".job-description");
-  jobDescription.style.display = "block";
-  jobDescription.innerHTML = jobDescriptionText;
-  let jobDescriptionEditable = expItem.querySelector(
-    ".job-description-editable"
-  );
-  jobDescriptionEditable.style.display = "none";
-  let saveButton = expItem.querySelector(".save-button-editable");
-  saveButton.style.display = "none";
-};
-
-const deleteItem = (e) => {
-  const selectedItem = e.target.closest(".exp-item");
-  selectedItem.remove();
-
-  const newExpList = workExpList.filter((item) => item.id != selectedItem.id);
-  workExpList = newExpList;
-  setUpdatedData(workExpList);
-};
-
-filterWorkExpList = (event) => {
+const filterWorkExpList = (event) => {
   let searchInput = event.target.value;
 
   const expItems = document.getElementsByClassName("exp-item");
@@ -539,4 +605,3 @@ filterWorkExpList = (event) => {
       : (expItems[i].style.display = "none");
   }
 };
-

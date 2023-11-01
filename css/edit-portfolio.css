@@ -1,4 +1,5 @@
 .add-exp {
+  
   margin: 50px;
   padding: 15px 50px;
   border-radius: 7px;
@@ -49,6 +50,7 @@
   background-color: rgb(47, 47, 163);
   cursor: pointer;
 }
+
 .work-exp-form {
   width: 65%;
   display: none;
@@ -143,6 +145,9 @@ textarea {
   border-radius: 10px;
   box-shadow: 3px 3px 10px lightgrey;
 }
+.save-btn p {
+  margin: 0px auto;
+}
 
 .save-btn:hover {
   background-color: rgb(222, 146, 5);
@@ -153,6 +158,7 @@ textarea {
   display: flex;
   flex-direction: row-reverse;
 }
+
 .alert-text {
   color: red;
   display: none;
@@ -160,9 +166,12 @@ textarea {
   margin: 0px 25px;
 }
 
-.save-btn-editable {
-  margin: auto;
-  padding: 0px 50px;
+.save-button-editable {
+  margin: 20px auto;
+  background-color: green;
+  color: white;
+  width: 100px;
+  height: 30px;
 }
 
 .search-text {
@@ -178,6 +187,47 @@ textarea {
   box-shadow: -3px 3px 10px hsl(40, 10%, 76%);
   border-radius: 10px;
   padding: 10px 20px;
+  display: none;
+}
+
+.exp-list {
+  display: none;
+}
+
+.loader {
+  border-radius: 50%;
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+  border-right: 2px solid transparent;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+.no-data{
+  margin: 0 auto;
+  display: none;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media only screen and (max-width: 480px) {
@@ -200,6 +250,10 @@ textarea {
     width: 14px;
     height: 14px;
   }
+.loader {
+  width: 14px;
+  height: 14px;
+}
   .work-exp-form {
     width: 90%;
   }
@@ -272,6 +326,7 @@ textarea {
     font-size: x-small;
   }
 }
+
 @media only screen and (min-width: 481px) and (max-width: 1023px) {
   .search-text {
     height: 15px;
@@ -292,6 +347,10 @@ textarea {
     width: 14px;
     height: 14px;
   }
+.loader {
+  width: 14px;
+  height: 14px;
+}
   .work-exp-form {
     width: 90%;
   }

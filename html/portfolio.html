@@ -11,14 +11,16 @@
     />
     <link rel="stylesheet" href="../css/portfolio.css" />
     <link rel="stylesheet" href="../css/styles.css" />
-    <script src="../js/portfolio-form-submission.js]"></script>
+    <script src="../js/portfolio-form-submission.js"></script>
 
     <title>Portfolio</title>
   </head>
   <body>
     <header>
       <h2 class="header-options"><a href="/html/signup.html">Signup</a></h2>
-      <h2 class="header-options"><a href="/html/edit-portfolio.html">Edit</a></h2>
+      <h2 class="header-options">
+        <a href="/html/edit-portfolio.html">Edit</a>
+      </h2>
       <h2 class="header-options"><a href="/html/data-view.html">Data</a></h2>
     </header>
 
@@ -51,18 +53,21 @@
           <div id="details">
             <div>
               <h1>Work Experience</h1>
-              <div id="workexp">
+             
+              <div class="work-exp" id="workexp">
+                <h3 class="no-data">
+                  No work experience related data found in database.
+                </h3>
+                <div id="preloader">
+                  <div id="loader"></div>
+                </div>
                 <div class="home-exp-list"></div>
               </div>
             </div>
           </div>
         </div>
         <div id="picture">
-          <img
-            id="person"
-          
-            src="../res/ic_profile.png"
-          />
+          <img id="person" src="../res/ic_profile.png" />
           <h2 id="name-data">Sana Iqbal</h2>
           <h3 id="heading">Software Engineer</h3>
         </div>

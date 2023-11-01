@@ -81,6 +81,11 @@ a {
 .exp-content {
   margin-left: 20px;
 }
+.no-data {
+  margin: 0 auto;
+  display: none;
+  width: max-content;
+}
 
 @media only screen and (max-width: 480px) {
   #picture {
